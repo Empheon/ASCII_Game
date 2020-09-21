@@ -7,9 +7,9 @@ Application::Application(const short width, const short height, const short font
 
   hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
-  COORD dwBufferSize = { width, height };
-  COORD dwBufferCoord = { 0, 0 };
-  SMALL_RECT rcRegion = { 0, 0, width - 1, height - 1 };
+  dwBufferSize = { width, height };
+  dwBufferCoord = { 0, 0 };
+  rcRegion = { 0, 0, width - 1, height - 1 };
 
   SetLastError(NO_ERROR);
 
@@ -40,27 +40,13 @@ Application::Application(const short width, const short height, const short font
   //show window after updating
   ShowWindow(hwnd_console, SW_SHOW);
 
-  CHAR_INFO* buffer = new CHAR_INFO[width * height];
+  this->renderer = new Renderer(width, height);
+}
 
-  std::memset(buffer, 0, sizeof(CHAR_INFO) * width * height);
-
-  ReadConsoleOutput(hOutput, buffer, dwBufferSize,
-    dwBufferCoord, &rcRegion);
-
-  buffer[0].Char.AsciiChar = 'H';
-  buffer[0].Attributes = 0x0E;
-  
-
-  WriteConsoleOutput(hOutput, buffer, dwBufferSize,
-    dwBufferCoord, &rcRegion);
+void Application::RefreshFrame() {
+    WriteConsoleOutput(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
 }
 
 Application::~Application()
 {
-  delete[] buffer;
-}
-
-CHAR_INFO* Application::GetCharAt(const int& x, const int& y)
-{
-  return &buffer[y * this->width + x];
 }

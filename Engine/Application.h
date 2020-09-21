@@ -1,17 +1,23 @@
 #pragma once
 #include <Windows.h>
 #include <iostream>
+#include "Renderer.h"
 
 class Application
 {
 public:
-  CHAR_INFO* buffer;
-  int width, height;
-  HANDLE hOutput;
+    int width, height;
+    HANDLE hOutput;
 
-  CHAR_INFO* GetCharAt(const int& x, const int& y);
+    Renderer* renderer;
 
-  Application(const short width, const short height, const short fontW, const short fontH);
-  ~Application();
+    Application(const short width, const short height, const short fontW, const short fontH);
+    void RefreshFrame();
+    ~Application();
+
+private:
+    COORD dwBufferSize;
+    COORD dwBufferCoord;
+    SMALL_RECT rcRegion;
 };
 
