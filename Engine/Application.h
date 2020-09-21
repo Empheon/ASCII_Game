@@ -5,7 +5,7 @@
 #include <sstream>
 
 #include "Timer.h"
-#include "InputManager.h"
+#include "input/InputManager.h"
 
 class Application
 {
@@ -16,16 +16,16 @@ public:
     Renderer* renderer;
     InputManager input;
 
-  Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS);
-  ~Application();
+    Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS);
+    ~Application();
 
     void RefreshFrame();
 
-  virtual void onUpdate(double delta) = 0;
-  virtual void onRender() = 0;
+    virtual void OnUpdate(double delta) = 0;
+    virtual void OnRender() = 0;
 
-  void Run();
-  void Stop();
+    void Run();
+    void Stop();
 
 private:
 	bool running;
@@ -34,5 +34,7 @@ private:
     COORD dwBufferSize;
     COORD dwBufferCoord;
     SMALL_RECT rcRegion;
+
+    void UpdateInputs();
 };
 

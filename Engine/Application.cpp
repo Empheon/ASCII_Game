@@ -39,8 +39,6 @@ Application::Application(const short width, const short height, const short font
   ShowWindow(hwnd_console, SW_SHOW);
 
   this->renderer = new Renderer(width, height);
-
-  input.Init();
 }
 
 void Application::RefreshFrame() {
@@ -65,20 +63,24 @@ void Application::Run()
     int frames = 0;
 #endif
 
+    input.SearchGamepads();
+
     while (running) {
         double currentTime = loopTimer.getElapsedSeconds();
         delta += currentTime - lastTime;
         lastTime = currentTime;
 
+        UpdateInputs();
+
         while (delta >= frameMillis) {
-            onUpdate(delta);
+            OnUpdate(delta);
 #ifdef _DEBUG
             updates++;
 #endif
             delta -= frameMillis;
         }
 
-        onRender();
+        OnRender();
 
 #ifdef _DEBUG
         frames++;
@@ -98,3 +100,8 @@ void Application::Stop() {
     running = false;
 }
 
+void Application::UpdateInputs() {
+    for (int i = 0; i < input.GetConnectedGamepadCount(); ++i) {
+        input.GetGamepad(i)->Update();
+    }
+}
