@@ -39,13 +39,16 @@ Application::Application(const short width, const short height, const short font
   ShowWindow(hwnd_console, SW_SHOW);
 
   this->renderer = new Renderer(width, height);
+
+  input.Init();
 }
 
 void Application::RefreshFrame() {
     WriteConsoleOutput(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
 }
 
-Application::~Application() {}
+Application::~Application() {
+}
 
 void Application::Run()
 {

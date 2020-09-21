@@ -8,10 +8,10 @@ public:
     {
     }
     int ble = 0;
-    void onUpdate(float delta) override {
+    void onUpdate(double delta) override {
         std::memset(renderer->buffer, 0, sizeof(CHAR_INFO) * width * height);
 
-        renderer->DrawRect((2 + ble++) % 48, (2 + ble/2) % 48, 5, 5, '\u25A0', 0x0e);
+        renderer->DrawRect((2 + ble++) % 48, (2 + ble/2) % 48, 5, 5, '#', 0x0e);
         RefreshFrame();
     }
 

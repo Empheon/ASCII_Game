@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "Timer.h"
+#include "InputManager.h"
 
 class Application
 {
@@ -13,13 +14,14 @@ public:
     HANDLE hOutput;
 
     Renderer* renderer;
+    InputManager input;
 
   Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS);
   ~Application();
 
     void RefreshFrame();
 
-  virtual void onUpdate(float delta) = 0;
+  virtual void onUpdate(double delta) = 0;
   virtual void onRender() = 0;
 
   void Run();
