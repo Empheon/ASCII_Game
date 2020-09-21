@@ -1,16 +1,14 @@
 #include "Application.h"
 
-Application::Application(const short width, const short height, const short fontW, const short fontH)
+Application::Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS)
+    : width(width), height(height), targetFPS(targetFPS)
 {
-  this->width = width;
-  this->height = height;
-
   hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
   COORD dwBufferSize = { width, height };
   COORD dwBufferCoord = { 0, 0 };
   SMALL_RECT rcRegion = { 0, 0, width - 1, height - 1 };
-
+  
   SetLastError(NO_ERROR);
 
   LONG_PTR new_style = WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL;
@@ -40,7 +38,7 @@ Application::Application(const short width, const short height, const short font
   //show window after updating
   ShowWindow(hwnd_console, SW_SHOW);
 
-  CHAR_INFO* buffer = new CHAR_INFO[width * height];
+  buffer = new CHAR_INFO[width * height];
 
   std::memset(buffer, 0, sizeof(CHAR_INFO) * width * height);
 
@@ -58,6 +56,54 @@ Application::Application(const short width, const short height, const short font
 Application::~Application()
 {
   delete[] buffer;
+}
+
+void Application::Run()
+{
+    running = true;
+    loopTimer.start();
+ 
+    double frameMillis = 1.0 / targetFPS;
+    double delta = 0.0;
+    double lastTime = loopTimer.getElapsedSeconds();
+
+#ifdef _DEBUG
+    double lastPrint = 0.0;
+    int updates = 0;
+    int frames = 0;
+#endif
+
+    while (running) {
+        double currentTime = loopTimer.getElapsedSeconds();
+        delta += currentTime - lastTime;
+        lastTime = currentTime;
+
+        while (delta >= frameMillis) {
+            onUpdate(delta);
+#ifdef _DEBUG
+            updates++;
+#endif
+            delta -= frameMillis;
+        }
+
+        onRender();
+
+#ifdef _DEBUG
+        frames++;
+        if (currentTime - lastPrint > 1.0) {
+            std::wstringstream ss;
+            ss << "[GameLoop] updates: " << updates << " | frames: " << frames << std::endl;
+            OutputDebugString(ss.str().c_str());
+            updates = 0;
+            frames = 0;
+            lastPrint = currentTime;
+        }
+#endif
+    }
+}
+
+void Application::Stop() {
+    running = false;
 }
 
 CHAR_INFO* Application::GetCharAt(const int& x, const int& y)
