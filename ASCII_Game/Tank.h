@@ -9,10 +9,13 @@
 class Tank : public Entity
 {
 public:
-    Gamepad* gamepad;
+    ENTITY_TYPE(Tank);
 
-    Tank(const WORD& attributes, Gamepad* gamepad)
-        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b01000000, 5, 5), gamepad(gamepad) {
+    Gamepad* gamepad;
+    float offset;
+
+    Tank(const WORD& attributes, Gamepad* gamepad, float offset)
+        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11000000, 5, 5), gamepad(gamepad), offset(offset) {
     }
 
     void OnInit() override;

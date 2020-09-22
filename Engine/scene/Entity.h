@@ -4,10 +4,14 @@
 #include "Scene.h"
 #include "../Vector2.h"
 
+#define ENTITY_TYPE(x) virtual std::string GetType() const { return #x; }
+
 class Entity
 {
     friend class Scene;
 public:
+    virtual std::string GetType() const = 0;
+
     std::string tag;
     Texture texture;
     WORD attributes;

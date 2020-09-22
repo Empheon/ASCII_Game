@@ -16,7 +16,7 @@ void GameScene::OnLoad() {
 
 	for (int i = 0; i < playerCount; ++i) {
 		Gamepad* gp = parent->input.GetGamepad(i);
-		tanks.push_back(Tank(playerColors[i], gp));
+		tanks.push_back(Tank(playerColors[i], gp, i * 8));
 	}
 
 	wall = new Wall(6, 12, 30, 6);

@@ -203,6 +203,7 @@
     <ClInclude Include="render\Renderer.h" />
     <ClInclude Include="render\Texture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -213,6 +214,7 @@
     <ClCompile Include="render\Renderer.cpp" />
     <ClCompile Include="render\Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
