@@ -29,10 +29,10 @@ public:
         ry = input.GetGamepad(c - 1)->GetStickRY() * -12 + 23;
         x += sx;
         y -= sy;
-        if (x < -4.0f) x = 60.0f;
-        if (y < -4.0f) y = 60.0f;
-        if (x > 60.0f) x = -4.0f;
-        if (y > 60.0f) y = -4.0f;
+        if (x < -4.0f) x = 100.0f;
+        if (y < -4.0f) y = 100.0f;
+        if (x > 100.0f) x = -4.0f;
+        if (y > 100.0f) y = -4.0f;
 
     }
 
@@ -49,9 +49,8 @@ public:
 
 int main()
 {
-    Game* app = new Game(80, 80, 12, 12);
+    Game* app = new Game(92, 92, 10, 10);
     app->Run();
-
 
     std::cin.get();
     delete app;
