@@ -12,7 +12,7 @@ public:
     Gamepad* gamepad;
 
     Tank(const WORD& attributes, Gamepad* gamepad)
-        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b10000000, 5, 5), gamepad(gamepad) {
+        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b01000000, 5, 5), gamepad(gamepad) {
     }
 
     void OnInit() override;

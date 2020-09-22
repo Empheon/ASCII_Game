@@ -2,6 +2,7 @@
 #include "../render/Texture.h"
 #include "../render/Renderer.h"
 #include "Scene.h"
+#include "../Vector2.h"
 
 class Entity
 {
@@ -10,8 +11,9 @@ public:
     std::string tag;
     Texture texture;
     WORD attributes;
-    float x;
-    float y;
+    Vector2 position;
+    Vector2 prevPosition;
+    float yPrev;
     float width;
     float height;
 
@@ -31,13 +33,15 @@ public:
 
     void SetTag(std::string tag);
     void Move(const float& x, const float& y);
+    void Move(const Vector2& vec);
 
     void Destroy();
+    bool IsColliding(Entity* other);
 
     virtual void OnInit() {};
     virtual void OnDestroy() {};
     virtual void OnUpdate() {};
-    virtual void OnDraw(Renderer* Renderer) {};
+    virtual void OnDraw(Renderer* renderer) {};
     virtual void OnCollision(Entity* other) {};
 
 protected:

@@ -162,6 +162,7 @@
     <ClCompile Include="ASCII_Game.cpp" />
     <ClCompile Include="scenes\GameScene.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -172,6 +173,7 @@
     <ClInclude Include="scenes\GameScene.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

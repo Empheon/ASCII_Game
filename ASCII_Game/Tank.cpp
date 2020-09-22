@@ -18,4 +18,14 @@ void Tank::OnUpdate() {
 }
 
 void Tank::OnCollision(Entity* other) {
+    /*Tank* t = (Tank*)other;
+    std::wstringstream ss;
+    ss << "[Tank] collision: " << gamepad->GetId() << " colliding " << t->gamepad->GetId() << std::endl;
+    OutputDebugString(ss.str().c_str());*/
+    std::wstringstream ss;
+    ss << "[Tank] Wall collision !" << gamepad->GetId() << std::endl;
+    OutputDebugString(ss.str().c_str());
+    x = xPrev;
+    y = yPrev;
+
 }

@@ -17,6 +17,7 @@ void Scene::Update() {
 			++it;
 		}
 	}
+	CheckCollisions();
 	OnUpdate();
 }
 
@@ -31,7 +32,18 @@ void Scene::Draw(Renderer* renderer) {
 }
 
 void Scene::CheckCollisions() {
-
+	auto itY = entities.begin();
+	
+	while (itY != entities.end()) {
+		auto itX = entities.begin();
+		while (itX != entities.end()) {
+			if ((*itY)->IsColliding(*itX)) {
+				(*itY)->OnCollision(*itX);
+			}
+			++itX;
+		}
+		++itY;
+	}
 }
 
 void Scene::Instantiate(Entity* entity) {

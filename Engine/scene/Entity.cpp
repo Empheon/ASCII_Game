@@ -16,33 +16,36 @@ void Entity::SetTag(std::string tag) {
 }
 
 void Entity::Move(const float& x, const float& y) {
-    this->x += x;
-    this->y += y;
+    prevPosition.x = this->position.x;
+    prevPosition.y = this->position.y;
+    this->position.x += x;
+    this->position.y += y;
+}
 
-    /*if (tmpX < 0) posX = 0;
-    else if (tmpX + width >= Application::width) posX = Application::width - width;
-
-    if (tmpY < 0) posY = 0;
-    else if (tmpY + height >= Application::height) posY = Application::height - height;*/
+void Entity::Move(const Vector2& vec) {
+    prevPosition.x = this->position.x;
+    prevPosition.y = this->position.y;
+    this->position.x += vec.x;
+    this->position.y += vec.y;
 }
 
 void Entity::Destroy() {
     destroyed = true;
 }
 
-//bool Entity::CheckCollisions(Entity* other) {
-//    if (!(other->layer & layerMask)) {
-//        return false;
-//    }
-//
-//    if (posX < other->posX + other->width &&
-//        posX + width > other->posX &&
-//        posY < other->posY + other->height &&
-//        posY + height > other->posY) {
-//        return true;
-//    }
-//    return false;
-//}
+bool Entity::IsColliding(Entity* other) {
+    if (!(other->layer & layerMask) || other == this) {
+        return false;
+    }
+
+    if (position.x < other->position.x + other->width &&
+        position.x + width > other->position.x &&
+        position.y < other->position.y + other->height &&
+        position.y + height > other->position.y) {
+        return true;
+    }
+    return false;
+}
 
 void Entity::Update() {
     if (destroyed)

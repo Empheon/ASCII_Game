@@ -4,6 +4,7 @@ GameScene::GameScene() {
 }
 
 GameScene::~GameScene() {
+	delete wall;
 }
 
 void GameScene::OnUpdate() {
@@ -18,9 +19,13 @@ void GameScene::OnLoad() {
 		tanks.push_back(Tank(playerColors[i], gp));
 	}
 
+	wall = new Wall(6, 12, 30, 6);
+
 	for (auto& t : tanks) {
 		Instantiate(&t);
 	}
+
+	Instantiate(wall);
 }
 
 void GameScene::OnPreDraw(Renderer* renderer) {
