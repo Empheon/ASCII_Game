@@ -23,6 +23,9 @@ CHAR_INFO* Renderer::GetCharAt(const int& x, const int& y)
 
 void Renderer::DrawChar(const short& x, const short& y, const char& c, const WORD& attributes)
 {
+    CHAR_INFO* ci = GetCharAt(x, y);
+    ci->Char.UnicodeChar = c;
+    ci->Attributes = attributes;
 }
 
 void Renderer::DrawRect(const short& x, const short& y, const short& width, const short& height, const char& c, const WORD& attributes) {
