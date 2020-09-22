@@ -19,3 +19,7 @@ int Texture::GetHeight() const
 {
 	return height;
 }
+
+Texture::Texture()
+{
+}

@@ -1,8 +1,15 @@
 #include "Application.h"
 
+int Application::width = 0;
+int Application::height = 0;
+Renderer* Application::renderer = nullptr;
+
 Application::Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS)
-    : width(width), height(height), targetFPS(targetFPS)
+    : targetFPS(targetFPS)
 {
+    Application::width = width;
+    Application::height = height;
+
     hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
     dwBufferSize = { width, height };
@@ -51,7 +58,7 @@ Application::Application(const short width, const short height, const short font
     // Show window 
     ShowWindow(hwnd_console, SW_SHOW);
 
-    this->renderer = new Renderer(width, height);
+    Application::renderer = new Renderer(width, height);
 }
 
 void Application::RefreshFrame() {

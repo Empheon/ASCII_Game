@@ -3,6 +3,7 @@
 #include <render/Texture.h>
 
 #include "Textures.h"
+#include "Tank.h"
 
 
 
@@ -11,17 +12,25 @@ class Game : public Application
 public:
     float x = 4.0, y = 4.0;
     float lx, ly, rx, ry;
+
+    int playerCount;
     Texture tx;
+
+    Tank tanks[2];
+
     Game(const short width, const short height, const short fontW, const short fontH)
         : Application(width, height, fontW, fontH, 60.0f), tx(TEX_TANK_BODY)
     {
+        playerCount = input.GetConnectedGamepadCount();
+
+        tanks[0] = Tank(0x0b, input.GetGamepad(0));
+        tanks[1] = Tank(0x0c, input.GetGamepad(playerCount > 1 ? 1 : 0));
     }
 
     void OnUpdate(double delta) override {
         std::memset(renderer->buffer, 0, sizeof(CHAR_INFO) * width * height);
         
-        int c = input.GetConnectedGamepadCount();
-        float sx = input.GetGamepad(0)->GetStickLX();
+        /*float sx = input.GetGamepad(0)->GetStickLX();
         float sy = input.GetGamepad(0)->GetStickLY();
         lx = sx * 12 + 23;
         ly = sy * -12 + 23;
@@ -32,7 +41,13 @@ public:
         if (x < -4.0f) x = 100.0f;
         if (y < -4.0f) y = 100.0f;
         if (x > 100.0f) x = -4.0f;
-        if (y > 100.0f) y = -4.0f;
+        if (y > 100.0f) y = -4.0f;*/
+
+        for (Tank t : tanks)
+        {
+            t.Update();
+            t.Draw();
+        }
 
     }
 

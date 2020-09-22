@@ -15,8 +15,7 @@ public:
 	int GetWidth() const ;
 	int GetHeight() const ;
 
-	static Texture LoadFromFile(std::string filename);
-
+	Texture();
 private:
 	int width, height;
 	std::wstring data;

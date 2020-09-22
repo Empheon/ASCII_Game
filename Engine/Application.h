@@ -10,10 +10,11 @@
 class Application
 {
 public:
-    int width, height;
+    static int width, height;
+    static Renderer* renderer;
+
     HANDLE hOutput;
 
-    Renderer* renderer;
     InputManager input;
 
     Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS);
