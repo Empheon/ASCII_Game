@@ -40,7 +40,7 @@ public:
 
 int main()
 {
-    Game* app = new Game(48, 48, 12, 12);
+    Game* app = new Game(100, 80, 8, 8);
     app->Run();
 
 
