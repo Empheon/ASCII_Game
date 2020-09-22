@@ -42,6 +42,11 @@ Application::Application(const short width, const short height, const short font
     int posy = (GetSystemMetrics(SM_CYSCREEN) - (sbInfo.dwSize.Y * fontH)) / 2;
     SetWindowPos(hwnd_console, HWND_TOP, posx, posy, 0, 0, SWP_FRAMECHANGED | SWP_NOSIZE);
 
+    // Hide cursor 
+    CONSOLE_CURSOR_INFO cursorInfo;
+    GetConsoleCursorInfo(hOutput, &cursorInfo);
+    cursorInfo.bVisible = false;
+    SetConsoleCursorInfo(hOutput, &cursorInfo);
 
     // Show window 
     ShowWindow(hwnd_console, SW_SHOW);
