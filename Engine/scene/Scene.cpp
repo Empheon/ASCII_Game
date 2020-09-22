@@ -4,6 +4,9 @@
 Scene::Scene() {
 }
 
+Scene::~Scene() {
+}
+
 void Scene::Update() {
 	auto it = entities.begin();
 	while (it != entities.end()) {
@@ -19,12 +22,12 @@ void Scene::Update() {
 
 void Scene::Draw(Renderer* renderer) {
 	auto it = entities.begin();
-	OnPreDraw();
+	OnPreDraw(renderer);
 	while (it != entities.end()) {
 		(*it)->Draw(renderer);
 		++it;
 	}
-	OnPostDraw();
+	OnPostDraw(renderer);
 }
 
 void Scene::CheckCollisions() {
@@ -34,6 +37,7 @@ void Scene::CheckCollisions() {
 void Scene::Instantiate(Entity* entity) {
 	entities.push_back(entity);
 	entity->parent = this;
+	entity->destroyed = false;
 	entity->OnInit();
 }
 

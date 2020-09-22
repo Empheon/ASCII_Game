@@ -18,6 +18,6 @@ public:
 protected:
 	void OnUpdate() override;
 	void OnLoad() override;
-	void OnPreDraw() override;
+	void OnPreDraw(Renderer* renderer) override;
 };
 

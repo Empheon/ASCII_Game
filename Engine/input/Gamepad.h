@@ -11,7 +11,7 @@ class Gamepad
 public:
 	Gamepad(int id, XINPUT_STATE state);
 	void Update();
-	int GetPort();
+	int GetId();
 	XINPUT_GAMEPAD* GetState();
 
 	float GetStickLX();

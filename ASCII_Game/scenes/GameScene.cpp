@@ -23,6 +23,6 @@ void GameScene::OnLoad() {
 	}
 }
 
-void GameScene::OnPreDraw() {
-	parent->renderer->Clear(' ', 0x07);
+void GameScene::OnPreDraw(Renderer* renderer) {
+	renderer->Clear(' ', 0x07);
 }

@@ -32,7 +32,7 @@ void Gamepad::Update() {
 	rightY *= 1 / (1 - 0.2);
 }
 
-int Gamepad::GetPort() {
+int Gamepad::GetId() {
 	return id;
 }
 

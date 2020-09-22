@@ -12,6 +12,7 @@ class Scene
 	friend class Application;
 public:
 	Scene();
+	virtual ~Scene();
 	void Instantiate(Entity* entity);
 	void Destroy(Entity* entity);
 	std::vector<Entity*> FindByTag(std::string tag);
@@ -27,8 +28,8 @@ private:
 protected:
 	virtual void OnLoad() {};
 	virtual void OnUpdate() {};
-	virtual void OnPreDraw() {}; // Draw on screen before entity drawing
-	virtual void OnPostDraw() {}; // Draw on screen after entity drawing
+	virtual void OnPreDraw(Renderer* renderer) {}; // Draw on screen before entity drawing
+	virtual void OnPostDraw(Renderer* renderer) {}; // Draw on screen after entity drawing
 
 	std::vector<Entity*> entities;
 };

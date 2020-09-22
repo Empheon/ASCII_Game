@@ -18,11 +18,13 @@ public:
     uint8_t layer;
     uint8_t layerMask;
 
+    bool textured = false;
     bool destroyed;
 
     Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layermask, const float& width, const float& height);
+    Entity(const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height);
     Entity() {};
-    ~Entity();
+    virtual ~Entity();
 
     void Update();
     void Draw(Renderer* renderer);

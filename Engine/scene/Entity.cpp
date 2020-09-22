@@ -1,7 +1,11 @@
 #include "Entity.h"
 
 Entity::Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), x(0), y(0), parent(nullptr) {
+    : textured(true), texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), x(0), y(0), parent(nullptr) {
+}
+
+Entity::Entity(const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
+    : textured(false), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), x(0), y(0), parent(nullptr) {
 }
 
 Entity::~Entity() {
@@ -51,6 +55,7 @@ void Entity::Draw(Renderer* renderer) {
     if (destroyed)
         return;
     
-    renderer->DrawSprite(x, y, texture, attributes);
+    if (textured)
+        renderer->DrawSprite(x, y, texture, attributes);
     OnDraw(renderer);
 }
