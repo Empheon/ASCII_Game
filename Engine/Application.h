@@ -7,14 +7,16 @@
 #include "Timer.h"
 #include "input/InputManager.h"
 
+class Scene;
+
 class Application
 {
 public:
-    static int width, height;
-    static Renderer* renderer;
+    int width, height;
 
     HANDLE hOutput;
 
+    Renderer* renderer;
     InputManager input;
 
     Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS);
@@ -22,11 +24,18 @@ public:
 
     void RefreshFrame();
 
-    virtual void OnUpdate(double delta) = 0;
-    virtual void OnRender() = 0;
+    virtual void OnInit() {};
+    virtual void OnUpdate() {};
+    virtual void OnPreDraw() {};
+    virtual void OnPostDraw() {};
 
     void Run();
     void Stop();
+
+    void LoadScene(Scene* scene);
+
+protected:
+    Scene* currentScene;
 
 private:
 	bool running;
@@ -37,5 +46,7 @@ private:
     SMALL_RECT rcRegion;
 
     void UpdateInputs();
+    void Update();
+    void Draw();
 };
 

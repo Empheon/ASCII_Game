@@ -1,8 +1,5 @@
 #include "Application.h"
-
-int Application::width = 0;
-int Application::height = 0;
-Renderer* Application::renderer = nullptr;
+#include "scene/Scene.h"
 
 Application::Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS)
     : targetFPS(targetFPS)
@@ -58,7 +55,7 @@ Application::Application(const short width, const short height, const short font
     // Show window 
     ShowWindow(hwnd_console, SW_SHOW);
 
-    Application::renderer = new Renderer(width, height);
+    renderer = new Renderer(width, height);
 }
 
 void Application::RefreshFrame() {
@@ -66,6 +63,7 @@ void Application::RefreshFrame() {
 }
 
 Application::~Application() {
+    delete renderer;
 }
 
 void Application::Run()
@@ -85,23 +83,25 @@ void Application::Run()
 
     input.SearchGamepads();
 
+    OnInit();
+
     while (running) {
         double currentTime = loopTimer.getElapsedSeconds();
         delta += currentTime - lastTime;
         lastTime = currentTime;
 
-        UpdateInputs();
-
         while (delta >= frameMillis) {
-            OnUpdate(delta);
+            UpdateInputs();
+            Update();
 #ifdef _DEBUG
             updates++;
 #endif
             delta -= frameMillis;
         }
 
-        OnRender();
-
+        Draw();
+        RefreshFrame();
+        
 #ifdef _DEBUG
         frames++;
         if (currentTime - lastPrint > 1.0) {
@@ -124,4 +124,28 @@ void Application::UpdateInputs() {
     for (int i = 0; i < input.GetConnectedGamepadCount(); ++i) {
         input.GetGamepad(i)->Update();
     }
+}
+
+void Application::Update() {
+    if (currentScene != nullptr) {
+        currentScene->Update();
+    }
+    OnUpdate();
+}
+
+void Application::Draw() {
+    OnPreDraw();
+    if (currentScene != nullptr) {
+        currentScene->Draw(renderer);
+    }
+    OnPostDraw();
+}
+
+void Application::LoadScene(Scene* scene) {
+    if (currentScene != nullptr) {
+        currentScene->parent = nullptr;
+    }
+    currentScene = scene;
+    currentScene->parent = this;
+    currentScene->OnLoad();
 }

@@ -5,32 +5,25 @@
 #include "Textures.h"
 #include "Tank.h"
 
+#include "scenes/GameScene.h"
 
 
 class Game : public Application
 {
 public:
-    float x = 4.0, y = 4.0;
-    float lx, ly, rx, ry;
-
-    int playerCount;
-    Texture tx;
-
-    Tank tanks[2];
+    GameScene gs;
 
     std::vector<std::pair<float, float>> points;
     Game(const short width, const short height, const short fontW, const short fontH)
-        : Application(width, height, fontW, fontH, 60.0f), tx(TEX_TANK_BODY)
-    {
-        playerCount = input.GetConnectedGamepadCount();
-
-        tanks[0] = Tank(0x0b, input.GetGamepad(0));
-        tanks[1] = Tank(0x0c, input.GetGamepad(playerCount > 1 ? 1 : 0));
+        : Application(width, height, fontW, fontH, 60.0f) {
     }
 
-    void OnUpdate(double delta) override {
-        std::memset(renderer->buffer, 0, sizeof(CHAR_INFO) * width * height);
+    void OnInit() override {
         
+        LoadScene(&gs);
+    }
+
+    void OnUpdate() override {
         /*float sx = input.GetGamepad(0)->GetStickLX();
         float sy = input.GetGamepad(0)->GetStickLY();
         lx = sx * 12 + 23;
@@ -44,32 +37,33 @@ public:
         if (x > 100.0f) x = -4.0f;
         if (y > 100.0f) y = -4.0f;*/
 
-        for (Tank& t : tanks)
+        /*for (Tank& t : tanks)
         {
-            t.Update();
+            t.OnUpdate();
         }
 
         if (input.GetGamepad(0)->IsButtonDown(XINPUT_GAMEPAD_B)) {
             points.push_back(std::make_pair(x, y));
-        }
+        }*/
     }
 
-    void OnRender() override {
-        renderer->DrawRect(0, 0, width, height, '.', 0x08);
-        renderer->DrawRect(rx, ry, 2, 2, '#', 0x0c);
-        renderer->DrawRect(lx, ly, 2, 2, '#', 0x0b);
-        //renderer->DrawRect(x, y, 4, 4, '#', 0x8e);
-        renderer->DrawSprite(x, y, tx, 0x0b);
+    void OnPostDraw() override {
+        //std::memset(renderer->buffer, 0, sizeof(CHAR_INFO) * width * height);
 
-        for (auto& p : points) {
-            renderer->DrawChar(p.first, p.second, 'O', 0x0a);
-        }
+        //renderer->DrawRect(rx, ry, 2, 2, '#', 0x0c);
+        //renderer->DrawRect(lx, ly, 2, 2, '#', 0x0b);
+        ////renderer->DrawRect(x, y, 4, 4, '#', 0x8e);
+        //renderer->DrawSprite(x, y, tx, 0x0b);
 
-        for (Tank& t : tanks)
-        {
-            t.Draw();
-        }
-        RefreshFrame();
+        //for (auto& p : points) {
+        //    renderer->DrawChar(p.first, p.second, 'O', 0x0a);
+        //}
+
+        //for (Tank& t : tanks)
+        //{
+        //    t.OnDraw(renderer);
+        //}
+        //
     }
 };
 

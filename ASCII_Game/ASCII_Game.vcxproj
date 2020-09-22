@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ASCII_Game.cpp" />
+    <ClCompile Include="scenes\GameScene.cpp" />
     <ClCompile Include="Tank.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="scenes\GameScene.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="Textures.h" />
   </ItemGroup>
