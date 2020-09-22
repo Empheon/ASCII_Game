@@ -37,10 +37,11 @@ public:
     }
 
     void OnRender() override {
+        renderer->DrawRect(0, 0, width, height, '.', 0x08);
         renderer->DrawRect(rx, ry, 2, 2, '#', 0x0c);
         renderer->DrawRect(lx, ly, 2, 2, '#', 0x09);
         //renderer->DrawRect(x, y, 4, 4, '#', 0x8e);
-        renderer->DrawSprite(x, y, tx, 0x0e);
+        renderer->DrawSprite(x, y, tx, 0x09);
         RefreshFrame();
     }
 };
