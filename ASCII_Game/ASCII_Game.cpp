@@ -49,7 +49,7 @@ public:
 
 int main()
 {
-    Game* app = new Game(92, 92, 10, 10);
+    Game* app = new Game(100, 80, 8, 8);
     app->Run();
 
     std::cin.get();
