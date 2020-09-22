@@ -3,18 +3,32 @@
 void Tank::OnInit() {
     position.x = (parent->parent->width / 2) - 2.5f + offset;
     position.y = (parent->parent->height / 2) - 2.5f;
+
+    cursor.x = position.x;
+    cursor.y = position.y - 4.0f;
     SetTag("tank");
 }
 
 void Tank::OnUpdate() {
     float sx = gamepad->GetStickLX();
     float sy = -gamepad->GetStickLY();
-    Move(sx, sy);
+
+    Move(sx * speed, sy * speed);
+
+    sx = gamepad->GetStickRX();
+    sy = -gamepad->GetStickRY();
+    cursor.x = position.x + 1.0 + sx * cursorDistance;
+    cursor.y = position.y + 1.0 + sy * cursorDistance;
 
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_B)) {
         std::vector<Entity*> ts = parent->FindByTag("tank");
         ((Tank*)ts[0])->Destroy();
     }
+}
+
+void Tank::OnDraw(Renderer* renderer) {
+    
+    renderer->DrawSprite(cursor.x, cursor.y, cursorTexture, color);
 }
 
 void Tank::OnCollision(Entity* other) {
@@ -25,7 +39,9 @@ void Tank::OnCollision(Entity* other) {
     std::wstringstream ss;
     ss << "[Tank] Collisition collision !" << other->GetType().c_str() << std::endl;
     OutputDebugString(ss.str().c_str());
-    position.x = prevPosition.x;
-    position.y = prevPosition.y;
 
+    if (other->GetType() == "Wall") {
+        position.x = prevPosition.x;
+        position.y = prevPosition.y;
+    }
 }

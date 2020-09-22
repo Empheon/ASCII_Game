@@ -72,3 +72,5 @@ std::vector<Entity*> Scene::FindByTag(std::string tag) {
 	}
 	return filtered;
 }
+
+// TODO: Add a find by type

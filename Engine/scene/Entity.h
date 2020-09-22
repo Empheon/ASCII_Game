@@ -48,6 +48,11 @@ public:
     virtual void OnDraw(Renderer* renderer) {};
     virtual void OnCollision(Entity* other) {};
 
+#ifdef _DEBUG
+    bool debugCollider = false;
+    void DrawCollider(Renderer* renderer);
+#endif
+
 protected:
     Scene* parent;
 };

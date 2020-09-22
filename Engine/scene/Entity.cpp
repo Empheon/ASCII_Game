@@ -60,5 +60,18 @@ void Entity::Draw(Renderer* renderer) {
     
     if (textured)
         renderer->DrawSprite(position.x, position.y, texture, attributes);
+    
     OnDraw(renderer);
+
+#ifdef _DEBUG
+    if (debugCollider)
+        DrawCollider(renderer);
+#endif
 }
+
+#ifdef _DEBUG
+void Entity::DrawCollider(Renderer* renderer) {
+    wchar_t colliderChar = L'\u2593';
+    renderer->DrawRect(position.x, position.y, width, height, colliderChar, 0xbc);
+}
+#endif
