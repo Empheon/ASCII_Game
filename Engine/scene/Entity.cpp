@@ -1,15 +1,19 @@
 #include "Entity.h"
 
 Entity::Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), posX(0), posY(0) {
+    : texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), x(0), y(0), parent(nullptr) {
 }
 
 Entity::~Entity() {
 }
 
+void Entity::SetTag(std::string tag) {
+    this->tag = tag;
+}
+
 void Entity::Move(const float& x, const float& y) {
-    posX += x;
-    posY += y;
+    this->x += x;
+    this->y += y;
 
     /*if (tmpX < 0) posX = 0;
     else if (tmpX + width >= Application::width) posX = Application::width - width;
@@ -47,6 +51,6 @@ void Entity::Draw(Renderer* renderer) {
     if (destroyed)
         return;
     
-    renderer->DrawSprite(posX, posY, texture, attributes);
+    renderer->DrawSprite(x, y, texture, attributes);
     OnDraw(renderer);
 }

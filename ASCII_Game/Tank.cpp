@@ -1,8 +1,9 @@
 #include "Tank.h"
 
 void Tank::OnInit() {
-    posX = 5.0f;
-    posY = 5.0f;
+    x = 5.0f;
+    y = 5.0f;
+    SetTag("tank");
 }
 
 void Tank::OnUpdate() {

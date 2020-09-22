@@ -21,6 +21,14 @@ CHAR_INFO* Renderer::GetCharAt(const int& x, const int& y)
     return &buffer[y * this->width + x];
 }
 
+void Renderer::Clear(const char& c, const WORD& attributes)
+{
+    for (int i = 0; i < width * height; ++i) {
+        buffer[i].Char.UnicodeChar = c;
+        buffer[i].Attributes = attributes;
+    }
+}
+
 void Renderer::DrawChar(const short& x, const short& y, const char& c, const WORD& attributes)
 {
     CHAR_INFO* ci = GetCharAt(x, y);

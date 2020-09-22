@@ -6,7 +6,11 @@ GameScene::GameScene() {
 GameScene::~GameScene() {
 }
 
+void GameScene::OnUpdate() {
+}
+
 void GameScene::OnLoad() {
+
 	int playerCount = parent->input.GetConnectedGamepadCount();
 
 	for (int i = 0; i < playerCount; ++i) {
@@ -20,5 +24,5 @@ void GameScene::OnLoad() {
 }
 
 void GameScene::OnPreDraw() {
-	parent->renderer->DrawRect(0, 0, parent->width, parent->height, '.', 0x07);
+	parent->renderer->Clear(' ', 0x07);
 }

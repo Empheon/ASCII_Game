@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Entity.h"
 
 Scene::Scene() {
 }
@@ -32,10 +33,26 @@ void Scene::CheckCollisions() {
 
 void Scene::Instantiate(Entity* entity) {
 	entities.push_back(entity);
+	entity->parent = this;
 	entity->OnInit();
 }
 
 void Scene::Destroy(Entity* entity) {
 	entity->Destroy();
+	entity->parent = nullptr;
 	entity->OnDestroy();
+}
+
+std::vector<Entity*> Scene::FindByTag(std::string tag) {
+	std::vector<Entity*> filtered;
+	/*auto it = std::copy_if(entities.begin(), entities.end(), filtered.begin(), [tag](Entity* e) {
+		return e->tag == tag; 
+	});
+	filtered.resize(std::distance(filtered.begin(), it));*/
+	for (auto& e : entities) {
+		if (e->tag == tag) {
+			filtered.push_back(e);
+		}
+	}
+	return filtered;
 }

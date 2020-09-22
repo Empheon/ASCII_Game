@@ -16,6 +16,7 @@ public:
 
     CHAR_INFO* GetCharAt(const int& x, const int& y);
 
+    void Clear(const char& c, const WORD& attributes);
     void DrawChar(const short& x, const short& y, const char& c, const WORD& attributes);
     void DrawRect(const short& x, const short& y, const short& width, const short& height, const char& c, const WORD& attributes);
     void DrawSprite(const short& x, const short& y, Texture& tex, const WORD& attributes);

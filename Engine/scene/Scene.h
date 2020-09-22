@@ -3,14 +3,18 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "Entity.h"
 #include "../Application.h"
+
+class Entity;
 
 class Scene
 {
 	friend class Application;
 public:
 	Scene();
+	void Instantiate(Entity* entity);
+	void Destroy(Entity* entity);
+	std::vector<Entity*> FindByTag(std::string tag);
 	
 	Application* parent;
 
@@ -21,9 +25,6 @@ private:
 	void Draw(Renderer* renderer);
 
 protected:
-	void Instantiate(Entity* entity);
-	void Destroy(Entity* entity);
-
 	virtual void OnLoad() {};
 	virtual void OnUpdate() {};
 	virtual void OnPreDraw() {}; // Draw on screen before entity drawing

@@ -16,6 +16,7 @@ public:
 	std::vector<Tank> tanks;
 
 protected:
+	void OnUpdate() override;
 	void OnLoad() override;
 	void OnPreDraw() override;
 };

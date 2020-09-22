@@ -1,14 +1,17 @@
 #pragma once
 #include "../render/Texture.h"
 #include "../render/Renderer.h"
+#include "Scene.h"
 
 class Entity
 {
+    friend class Scene;
 public:
+    std::string tag;
     Texture texture;
     WORD attributes;
-    float posX;
-    float posY;
+    float x;
+    float y;
     float width;
     float height;
 
@@ -24,6 +27,7 @@ public:
     void Update();
     void Draw(Renderer* renderer);
 
+    void SetTag(std::string tag);
     void Move(const float& x, const float& y);
 
     void Destroy();
@@ -33,5 +37,8 @@ public:
     virtual void OnUpdate() {};
     virtual void OnDraw(Renderer* Renderer) {};
     virtual void OnCollision(Entity* other) {};
+
+protected:
+    Scene* parent;
 };
 

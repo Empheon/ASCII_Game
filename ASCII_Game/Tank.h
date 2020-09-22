@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "scene/Entity.h"
 #include "input/Gamepad.h"
 #include "Textures.h"
