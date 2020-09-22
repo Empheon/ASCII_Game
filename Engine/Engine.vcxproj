@@ -198,14 +198,16 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="input\Gamepad.h" />
     <ClInclude Include="input\InputManager.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="render\Renderer.h" />
+    <ClInclude Include="render\Texture.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="input\Gamepad.cpp" />
     <ClCompile Include="input\InputManager.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="render\Renderer.cpp" />
+    <ClCompile Include="render\Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

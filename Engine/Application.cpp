@@ -14,15 +14,16 @@ Application::Application(const short width, const short height, const short font
   LONG_PTR new_style = WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL;
   HWND hwnd_console = GetConsoleWindow();
   LONG_PTR style_ptr = SetWindowLongPtr(hwnd_console, GWL_STYLE, new_style);
-  SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_DRAWFRAME);
-
+  
   HANDLE outputHandle = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
   SMALL_RECT tmpRect = { 0, 0, 1, 1 };
 
+  MoveWindow(hwnd_console, 0, 0, 0, 0, true);
   // Set window size
   SetConsoleWindowInfo(hOutput, true, &tmpRect);
   SetConsoleScreenBufferSize(hOutput, dwBufferSize);
+  //SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_DRAWFRAME);
   SetConsoleWindowInfo(hOutput, true, &rcRegion);
 
   // Set font
@@ -42,7 +43,7 @@ Application::Application(const short width, const short height, const short font
 }
 
 void Application::RefreshFrame() {
-    WriteConsoleOutput(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
+    WriteConsoleOutputW(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
 }
 
 Application::~Application() {
