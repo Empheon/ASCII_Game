@@ -1,5 +1,8 @@
 #include "Gamepad.h"
 
+#include <sstream>
+
+
 Gamepad::Gamepad(int id, XINPUT_STATE state)
 : id(id), state(state) {
 
@@ -7,6 +10,7 @@ Gamepad::Gamepad(int id, XINPUT_STATE state)
 
 void Gamepad::Update() {
 	DWORD result;
+
 	result = XInputGetState(id, &state);
 
 	float lxNorm = fmaxf(-1.0, (float) state.Gamepad.sThumbLX / JOYSTICK_MAX_VALUE);
@@ -57,3 +61,12 @@ float Gamepad::GetStickRY()
 	return rightY;
 }
 
+bool Gamepad::IsButtonDown(int button)
+{
+	return IsPressedOnState(state.Gamepad.wButtons, button);
+}
+
+bool Gamepad::IsPressedOnState(WORD& state, int button)
+{
+	return state & button;
+}

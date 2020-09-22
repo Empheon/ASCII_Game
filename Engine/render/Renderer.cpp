@@ -23,6 +23,9 @@ CHAR_INFO* Renderer::GetCharAt(const int& x, const int& y)
 
 void Renderer::DrawChar(const short& x, const short& y, const char& c, const WORD& attributes)
 {
+    CHAR_INFO* ci = GetCharAt(x, y);
+    ci->Char.UnicodeChar = c;
+    ci->Attributes = attributes;
 }
 
 void Renderer::DrawRect(const short& x, const short& y, const short& width, const short& height, const char& c, const WORD& attributes) {
@@ -41,10 +44,16 @@ void Renderer::DrawSprite(const short& x, const short& y, Texture& tex, const WO
     CHAR_INFO* ci;
     std::wstring* data = tex.GetData();
 
-    for (size_t yy = 0; yy < tex.GetHeight(); ++yy) {
-        for (size_t xx = 0; xx < tex.GetWidth(); ++xx) {
-            ci = GetCharAt(x + xx, y + yy);
-            ci->Char.UnicodeChar = data->at(yy * tex.GetWidth() + xx);
+    if (x < -tex.GetWidth() || x >= width || y < -tex.GetHeight() || y >= height)
+        return;
+
+    int leftCut = abs(min(x, 0));
+    int topCut = abs(min(y, 0));
+ 
+    for (size_t yy = max(0, y), ys = topCut; ys < tex.GetHeight() && yy < height; ++yy, ++ys) {
+        for (size_t xx = max(0, x), xs = leftCut; xs < tex.GetWidth() && xx < width; ++xx, ++xs) {
+            ci = GetCharAt(xx, yy);
+            ci->Char.UnicodeChar = data->at(ys * tex.GetWidth() + xs);
             ci->Attributes = attributes;
         }
     }

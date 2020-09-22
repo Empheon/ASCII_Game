@@ -8,11 +8,6 @@
 
 class Gamepad
 {
-private:
-	int id;
-	XINPUT_STATE state;
-	float leftX, leftY, rightX, rightY, leftTrigger, rightTrigger;
-
 public:
 	Gamepad(int id, XINPUT_STATE state);
 	void Update();
@@ -24,5 +19,13 @@ public:
 
 	float GetStickRX();
 	float GetStickRY();
-};
 
+	bool IsButtonDown(int button);
+
+private:
+	int id;
+	XINPUT_STATE state;
+	float leftX, leftY, rightX, rightY;
+
+	bool IsPressedOnState(WORD& state, int button);
+};

@@ -3,6 +3,8 @@
 Entity::Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
     : texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height)
 {
+    posX = 0;
+    posY = 0;
 }
 
 Entity::~Entity()
@@ -11,8 +13,8 @@ Entity::~Entity()
 
 void Entity::Move(const float& x, const float& y)
 {
-    float tmpX = posX + x;
-    float tmpY = posY + y;
+    posX += x;
+    posY += y;
 
     /*if (tmpX < 0) posX = 0;
     else if (tmpX + width >= Application::width) posX = Application::width - width;
