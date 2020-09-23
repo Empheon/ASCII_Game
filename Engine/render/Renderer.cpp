@@ -62,7 +62,7 @@ void Renderer::DrawRect(const int x, const int y, const int width, const int hei
     }
 }
 
-void Renderer::DrawSprite(const int x, const int y, Texture& tex, const WORD& attributes, int8_t z)
+void Renderer::DrawTexture(const int x, const int y, Texture& tex, const WORD& attributes, int8_t z)
 {
     std::wstring* data = tex.GetData();
 
@@ -74,7 +74,9 @@ void Renderer::DrawSprite(const int x, const int y, Texture& tex, const WORD& at
  
     for (size_t yy = max(0, y), ys = topCut; ys < tex.GetHeight() && yy < height; ++yy, ++ys) {
         for (size_t xx = max(0, x), xs = leftCut; xs < tex.GetWidth() && xx < width; ++xx, ++xs) {
-            DrawChar(xx, yy, data->at(ys * tex.GetWidth() + xs), attributes, z);
+            wchar_t c = data->at(ys * tex.GetWidth() + xs);
+            if (tex.IsAlpha() && c == ' ') continue;
+            DrawChar(xx, yy, c, attributes, z);
         }
     }
 }

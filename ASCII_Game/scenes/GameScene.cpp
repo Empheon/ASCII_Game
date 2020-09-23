@@ -35,10 +35,7 @@ void GameScene::OnLoad() {
 	Instantiate(wall3);
 	Instantiate(wall4);
 
-	int depth = 1;
 	for (auto& t : tanks) {
-		t.depth = depth;
-		depth += 10;
 		Instantiate(&t);
 	}
 }

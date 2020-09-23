@@ -83,7 +83,7 @@ void Entity::Draw(Renderer* renderer) {
         return;
     
     if (textured)
-        renderer->DrawSprite(position.x, position.y, texture, attributes, depth);
+        renderer->DrawTexture(position.x, position.y, texture, attributes, depth);
     
     OnDraw(renderer);
 

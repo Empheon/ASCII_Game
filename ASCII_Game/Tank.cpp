@@ -40,7 +40,7 @@ void Tank::OnDraw(Renderer* renderer) {
     std::wstringstream ss;
     ss << "D: " << depth;
 
-    renderer->DrawSprite(cursor.x, cursor.y, cursorTexture, color, 100);
+    renderer->DrawTexture(cursor.x, cursor.y, cursorTexture, color, 100);
     renderer->DrawString(position.x, position.y - 2, ss.str(), color, 99);
 };
 
