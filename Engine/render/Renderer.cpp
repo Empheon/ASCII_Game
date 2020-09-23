@@ -54,6 +54,18 @@ void Renderer::DrawChar(const int x, const int y, const wchar_t c, const WORD& a
     SetDepth(x, y, z);
 }
 
+void Renderer::Draw4DLine(const int x1, const int y1, const int x2, const int y2, const WORD& attributes, int8_t z) {
+    if (x1 == x2) { // Draw a vertical line
+        for (int y = min(y1, y2); y < max(y1, y2); y++) {
+            Renderer::DrawChar(x1, y, L'\u2502', attributes, z);
+        }
+    } else if (y1 == y2) { // Draw an horizontal line
+        for (int x = min(x1, x2); x < max(x1, x2); x++) {
+            Renderer::DrawChar(x, y1, L'\u2500', attributes, z);
+        }
+    }
+}
+
 void Renderer::DrawRect(const int x, const int y, const int width, const int height, const wchar_t c, const WORD& attributes, int8_t z) {
     for (int i = max(0, x); i < min((short)(x + width), this->width); i++) {
         for (int j = max(0, y); j < min((short)(y + height), this->height); j++) {
@@ -62,9 +74,9 @@ void Renderer::DrawRect(const int x, const int y, const int width, const int hei
     }
 }
 
-void Renderer::DrawTexture(const int x, const int y, Texture& tex, const WORD& attributes, int8_t z)
+void Renderer::DrawTexture(const int x, const int y, const Texture& tex, const WORD& attributes, int8_t z)
 {
-    std::wstring* data = tex.GetData();
+    const std::wstring* data = tex.GetData();
 
     if (x < -tex.GetWidth() || x >= width || y < -tex.GetHeight() || y >= height)
         return;

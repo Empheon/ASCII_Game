@@ -8,7 +8,7 @@ Texture::Texture()
 {
 }
 
-std::wstring* Texture::GetData() {
+const std::wstring* Texture::GetData() const {
 	return &data;
 }
 

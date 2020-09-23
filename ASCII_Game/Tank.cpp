@@ -33,22 +33,24 @@ void Tank::OnUpdate() {
         depth++;
         if (depth > 50) depth = -50;
     }
+
+    approxAngle = round((cursorAngle + M_PI) / M_PI * 4.0f);
+    /*approxAngle++;
+    if (approxAngle >= 7) approxAngle = 0;*/
 }
 
 void Tank::OnDraw(Renderer* renderer) {
 
     std::wstringstream ss;
-    ss << "D: " << depth;
+    ss << "cannon: " << cursorAngle << " a: " << approxAngle;
+
+    DrawCannon(renderer);
 
     renderer->DrawTexture(cursor.x, cursor.y, cursorTexture, color, 100);
-    renderer->DrawString(position.x, position.y - 2, ss.str(), color, 99);
+    //renderer->DrawString(position.x, position.y - 2, ss.str(), color, 99);
 };
 
 void Tank::OnCollision(Entity* other, const CollisionData* data) {
-    /*Tank* t = (Tank*)other;
-    std::wstringstream ss;
-    ss << "[Tank] collision: " << gamepad->GetId() << " colliding " << t->gamepad->GetId() << std::endl;
-    OutputDebugString(ss.str().c_str());*/
     std::wstringstream ss;
 
     if (other->GetType() == "Wall") {
@@ -58,4 +60,8 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
             position.x = prevPosition.x;
         }
     }
+}
+
+void Tank::DrawCannon(Renderer* renderer) const {
+    renderer->DrawTexture(position.x - 1, position.y - 1, TEX_TANK_CANNON[approxAngle % 8], color, depth);
 }

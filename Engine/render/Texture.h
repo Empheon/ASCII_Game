@@ -12,7 +12,7 @@ public:
 	Texture(int width, int height, std::wstring data, bool alpha = false);
 	Texture();
 
-	std::wstring* GetData();
+	const std::wstring* GetData() const;
 	int GetWidth() const;
 	int GetHeight() const;
 	bool IsAlpha() const;
