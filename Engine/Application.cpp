@@ -107,7 +107,7 @@ void Application::Run()
         frames++;
         if (currentTime - lastPrint > 1.0) {
             std::wstringstream ss;
-            ss << "[GameLoop] updates: " << updates << " | frames: " << frames << std::endl;
+            ss << "[GameLoop] updates per sec: " << updates << " | fps: " << frames << std::endl;
             OutputDebugString(ss.str().c_str());
             updates = 0;
             frames = 0;

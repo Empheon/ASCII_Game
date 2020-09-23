@@ -9,15 +9,18 @@
 class Texture
 {
 public:
-	Texture(int width, int height, std::wstring data);
-
-	std::wstring* GetData();
-	int GetWidth() const ;
-	int GetHeight() const ;
-
+	Texture(int width, int height, std::wstring data, bool alpha = false);
 	Texture();
+
+	const std::wstring* GetData() const;
+	int GetWidth() const;
+	int GetHeight() const;
+	bool IsAlpha() const;
+
+	
 private:
 	int width, height;
+	bool alpha;
 	std::wstring data;
 };
 

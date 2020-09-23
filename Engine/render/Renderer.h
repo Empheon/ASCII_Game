@@ -10,15 +10,21 @@ public:
     short width;
     short height;
     CHAR_INFO* buffer;
+    int8_t* depthBuffer;
 
     Renderer(const short& width, const short& height);
     ~Renderer();
 
-    CHAR_INFO* GetCharAt(const int& x, const int& y);
+    inline CHAR_INFO* GetCharAt(const int x, const int y);
+    inline int8_t GetDepthAt(const int x, const int y);
 
-    void Clear(const wchar_t& c, const WORD& attributes);
-    void DrawChar(const short& x, const short& y, const wchar_t& c, const WORD& attributes);
-    void DrawRect(const short& x, const short& y, const short& width, const short& height, const wchar_t& c, const WORD& attributes);
-    void DrawSprite(const short& x, const short& y, Texture& tex, const WORD& attributes);
+    void Clear(const wchar_t c, const WORD& attributes);
+    void ClearDepth();
+    void SetDepth(const int x, const int y, int8_t z);
+    void DrawChar(const int x, const int y, const wchar_t c, const WORD& attributes, int8_t z = 0);
+    void Draw4DLine(const int x1, const int y1, const int x2, const int y2, const WORD& attributes, int8_t z = 0);
+    void DrawRect(const int x, const int y, const int width, const int height, const wchar_t c, const WORD& attributes, int8_t z = 0);
+    void DrawTexture(const int x, const int y, const Texture& tex, const WORD& attributes, int8_t z = 0);
+    void DrawString(const int x, const int y, const std::wstring& text, const WORD& attributes, int8_t z = 0);
 };
 

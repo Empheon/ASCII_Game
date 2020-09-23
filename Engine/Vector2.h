@@ -6,8 +6,10 @@ class Vector2
 public:
 	Vector2(float x, float y);
 	Vector2();
-	float Angle();
-	float Length();
+
+	float Cross(const Vector2& other) const;
+	float Angle() const;
+	float Length() const;
 	float x, y;
 };
 

@@ -23,12 +23,13 @@ public:
 
     void OnUpdate() override;
     void OnDraw(Renderer* renderer) override;
-    void OnCollision(Entity* other) override;
+    void OnCollision(Entity* other, const CollisionData* data) override;
 
     void Setup(const Vector2& position, float angle, float speed) {
         this->position = position;
         this->directionAngle = angle;
         this->speed = speed;
+        depth = -10;
     }
 };
 

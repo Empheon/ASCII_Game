@@ -45,8 +45,9 @@ void Scene::CheckCollisions() {
 	while (itY != entities.end()) {
 		auto itX = entities.begin();
 		while (itX != entities.end()) {
-			if ((*itY)->IsColliding(*itX)) {
-				(*itY)->OnCollision(*itX);
+			Entity::CollisionData data;
+			if ((*itY)->IsColliding(*itX, &data)) {
+				(*itY)->OnCollision(*itX, &data);
 			}
 			++itX;
 		}
