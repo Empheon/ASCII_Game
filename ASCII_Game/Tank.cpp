@@ -27,14 +27,22 @@ void Tank::OnUpdate() {
     cursor.y = position.y + sin(cursorAngle) * cursorDistance;
 
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_B)) {
+        depth--;
+        if (depth < -50) depth = 50;
+    } else if (gamepad->IsButtonDown(XINPUT_GAMEPAD_A)) {
         depth++;
+        if (depth > 50) depth = -50;
     }
 }
 
 void Tank::OnDraw(Renderer* renderer) {
-    
-    renderer->DrawSprite(cursor.x, cursor.y, cursorTexture, color);
-}
+
+    std::wstringstream ss;
+    ss << "D: " << depth;
+
+    renderer->DrawSprite(cursor.x, cursor.y, cursorTexture, color, 100);
+    renderer->DrawString(position.x, position.y - 2, ss.str(), color, 99);
+};
 
 void Tank::OnCollision(Entity* other, const CollisionData* data) {
     /*Tank* t = (Tank*)other;
