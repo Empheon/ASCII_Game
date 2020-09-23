@@ -17,6 +17,7 @@ public:
         : Entity(TEX_BULLET, 0x0E, 0b00100000, 0b11100000, 1, 1) {
         this->position.x = x;
         this->position.y = y;
+        depth = -10;
     }
 
     Bullet() {};
@@ -24,12 +25,5 @@ public:
     void OnUpdate() override;
     void OnDraw(Renderer* renderer) override;
     void OnCollision(Entity* other, const CollisionData* data) override;
-
-    void Setup(const Vector2& position, float angle, float speed) {
-        this->position = position;
-        this->directionAngle = angle;
-        this->speed = speed;
-        depth = -10;
-    }
 };
 
