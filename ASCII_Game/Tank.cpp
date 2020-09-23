@@ -66,6 +66,21 @@ void Tank::OnDraw(Renderer* renderer) {
 
     renderer->DrawTexture(cursor.x, cursor.y, cursorTexture, color, 100);
     //renderer->DrawString(position.x, position.y - 2, ss.str(), color, 99);
+
+    std::wstringstream hpStr;
+    for (int i = 0; i < hitPoints; i++) {
+        hpStr << L"\u2590";
+    }
+
+    WORD hpColor = 0x0A;
+    if (hitPoints <= 1) {
+        hpColor = 0x0C;
+    }
+    else if (hitPoints <= 3) {
+        hpColor = 0x0E;
+    }
+
+    renderer->DrawString(position.x, position.y - 2, hpStr.str(), hpColor, 99);
 };
 
 void Tank::OnCollision(Entity* other, const CollisionData* data) {
@@ -77,6 +92,11 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
         } else if (data->direction == CollisionData::Direction::VERT) {
             position.x = prevPosition.x;
         }
+    }
+
+    if (other->GetType() == "Bullet" && ((Bullet*) other)->ownerTag != tag) {
+        hitPoints--;
+        parent->parent->renderer->DoScreenShake(1.5f);
     }
 }
 

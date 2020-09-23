@@ -103,3 +103,13 @@ void Renderer::DrawString(const int x, const int y, const std::wstring& text, co
         DrawChar(xx, y, text.at(xs), attributes, z);
     }
 }
+
+void Renderer::DoScreenShake(float force)
+{
+    shakeForce = force;
+}
+
+void Renderer::Update()
+{
+    shakeForce *= 0.95f;
+}

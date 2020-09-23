@@ -59,8 +59,17 @@ Application::Application(const short width, const short height, const short font
 }
 
 void Application::RefreshFrame() {
-    //COORD origin = { rand() % 3 - 1, rand() % 3 - 1 };
-    WriteConsoleOutputW(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
+    renderer->Update();
+
+    int rxSign = ((double)rand() / RAND_MAX) > 0.5f ? 1 : -1;
+    int rySign = ((double)rand() / RAND_MAX) > 0.5f ? 1 : -1;
+
+    double rx = rxSign * (((double)rand() / (RAND_MAX)) + 1) * renderer->shakeForce;
+    double ry = rySign * (((double)rand() / (RAND_MAX)) + 1) * renderer->shakeForce;
+
+    COORD origin = { rx, ry };
+
+    WriteConsoleOutputW(hOutput, renderer->buffer, dwBufferSize, origin, &rcRegion);
 }
 
 Application::~Application() {
@@ -102,7 +111,7 @@ void Application::Run()
 
         Draw();
         RefreshFrame();
-        
+
 #ifdef _DEBUG
         frames++;
         if (currentTime - lastPrint > 1.0) {

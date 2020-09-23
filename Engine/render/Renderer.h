@@ -12,6 +12,8 @@ public:
     CHAR_INFO* buffer;
     int8_t* depthBuffer;
 
+    float shakeForce = 0;
+
     Renderer(const short& width, const short& height);
     ~Renderer();
 
@@ -26,5 +28,9 @@ public:
     void DrawRect(const int x, const int y, const int width, const int height, const wchar_t c, const WORD& attributes, int8_t z = 0);
     void DrawTexture(const int x, const int y, const Texture& tex, const WORD& attributes, int8_t z = 0);
     void DrawString(const int x, const int y, const std::wstring& text, const WORD& attributes, int8_t z = 0);
+
+    void DoScreenShake(float force);
+
+    void Update();
 };
 
