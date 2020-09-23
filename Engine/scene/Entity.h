@@ -22,6 +22,8 @@ public:
     std::string tag;
     Texture texture;
     WORD attributes;
+    int8_t depth;
+
     Vector2 position;
     Vector2 prevPosition;
     float yPrev;

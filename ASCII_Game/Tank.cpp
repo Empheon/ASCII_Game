@@ -27,8 +27,7 @@ void Tank::OnUpdate() {
     cursor.y = position.y + sin(cursorAngle) * cursorDistance;
 
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_B)) {
-        std::vector<Entity*> ts = parent->FindByTag("tank");
-        ((Tank*)ts[0])->Destroy();
+        depth++;
     }
 }
 
@@ -44,11 +43,11 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
     OutputDebugString(ss.str().c_str());*/
     std::wstringstream ss;
 
-    //if (other->GetType() == "Wall") {
+    if (other->GetType() == "Wall") {
         if (data->direction == CollisionData::Direction::HOR) {
             position.y = prevPosition.y;
         } else if (data->direction == CollisionData::Direction::VERT) {
             position.x = prevPosition.x;
         }
-    //}
+    }
 }

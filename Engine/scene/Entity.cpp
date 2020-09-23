@@ -1,11 +1,11 @@
 #include "Entity.h"
 
 Entity::Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : textured(true), texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), parent(nullptr) {
+    : textured(true), texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), parent(nullptr), depth(0) {
 }
 
 Entity::Entity(const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : textured(false), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), parent(nullptr) {
+    : textured(false), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), parent(nullptr), depth(0) {
 }
 
 Entity::~Entity() {
@@ -83,7 +83,7 @@ void Entity::Draw(Renderer* renderer) {
         return;
     
     if (textured)
-        renderer->DrawSprite(position.x, position.y, texture, attributes);
+        renderer->DrawSprite(position.x, position.y, texture, attributes, depth);
     
     OnDraw(renderer);
 
@@ -96,6 +96,6 @@ void Entity::Draw(Renderer* renderer) {
 #ifdef _DEBUG
 void Entity::DrawCollider(Renderer* renderer) {
     wchar_t colliderChar = L'\u2593';
-    renderer->DrawRect(position.x, position.y, width, height, colliderChar, 0xbc);
+    renderer->DrawRect(position.x, position.y, width, height, colliderChar, 0xbc, 127);
 }
 #endif

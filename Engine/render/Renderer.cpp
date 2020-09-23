@@ -5,7 +5,8 @@ Renderer::Renderer(const short &width, const short &height)
     this->width = width;
     this->height = height;
 
-    buffer = new CHAR_INFO[width * height];
+    buffer = new CHAR_INFO[(int) width * height];
+    depthBuffer = new int8_t[(int) width * height];
 
     std::memset(buffer, 0, sizeof(CHAR_INFO) * width * height);
 }
@@ -13,41 +14,56 @@ Renderer::Renderer(const short &width, const short &height)
 Renderer::~Renderer()
 {
     delete[] buffer;
+    delete[] depthBuffer;
 }
 
 
-CHAR_INFO* Renderer::GetCharAt(const int& x, const int& y)
+CHAR_INFO* Renderer::GetCharAt(const int x, const int y)
 {
     return &buffer[y * this->width + x];
 }
 
-void Renderer::Clear(const wchar_t& c, const WORD& attributes)
+int8_t Renderer::GetDepthAt(const int x, const int y)
+{
+    return depthBuffer[y * this->width + x];
+}
+
+void Renderer::Clear(const wchar_t c, const WORD& attributes)
 {
     for (int i = 0; i < width * height; ++i) {
         buffer[i].Char.UnicodeChar = c;
         buffer[i].Attributes = attributes;
     }
+    ClearDepth();
 }
 
-void Renderer::DrawChar(const short& x, const short& y, const wchar_t& c, const WORD& attributes)
-{
+void Renderer::ClearDepth() {
+    std::memset(depthBuffer, -128, sizeof(int8_t) * width * height);
+}
+
+void Renderer::SetDepth(const int x, const int y, int8_t z) {
+    depthBuffer[y * width + x] = z;
+}
+
+void Renderer::DrawChar(const int x, const int y, const wchar_t c, const WORD& attributes, int8_t z) {
+    if (z < GetDepthAt(x, y))
+        return;
     CHAR_INFO* ci = GetCharAt(x, y);
     ci->Char.UnicodeChar = c;
     ci->Attributes = attributes;
+    SetDepth(x, y, z);
 }
 
-void Renderer::DrawRect(const short& x, const short& y, const short& width, const short& height, const wchar_t& c, const WORD& attributes) {
+void Renderer::DrawRect(const int x, const int y, const int width, const int height, const wchar_t c, const WORD& attributes, int8_t z) {
     CHAR_INFO* ci;
     for (int i = max(0, x); i < min((short)(x + width), this->width); i++) {
         for (int j = max(0, y); j < min((short)(y + height), this->height); j++) {
-            ci = GetCharAt(i, j);
-            ci->Char.UnicodeChar = c;
-            ci->Attributes = attributes;
+            DrawChar(i, j, c, attributes, z);
         }
     }
 }
 
-void Renderer::DrawSprite(const short& x, const short& y, Texture& tex, const WORD& attributes)
+void Renderer::DrawSprite(const int x, const int y, Texture& tex, const WORD& attributes, int8_t z)
 {
     CHAR_INFO* ci;
     std::wstring* data = tex.GetData();
@@ -60,9 +76,7 @@ void Renderer::DrawSprite(const short& x, const short& y, Texture& tex, const WO
  
     for (size_t yy = max(0, y), ys = topCut; ys < tex.GetHeight() && yy < height; ++yy, ++ys) {
         for (size_t xx = max(0, x), xs = leftCut; xs < tex.GetWidth() && xx < width; ++xx, ++xs) {
-            ci = GetCharAt(xx, yy);
-            ci->Char.UnicodeChar = data->at(ys * tex.GetWidth() + xs);
-            ci->Attributes = attributes;
+            DrawChar(xx, yy, data->at(ys * tex.GetWidth() + xs), attributes, z);
         }
     }
 }
