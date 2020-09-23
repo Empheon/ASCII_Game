@@ -31,7 +31,7 @@ private:
 
     Gamepad* gamepad;
     const float speed = 0.5f;
-    const float cursorDistance = 12.0f;
+    const float cursorDistance = 20.0f;
     float offset;
 
     Vector2 cursor;

@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#define MAX_BOUNCES 1
+
 class Bullet : public Entity
 {
 public:
@@ -11,6 +13,8 @@ public:
 
     float directionAngle = 0;
     float speed;
+    int bouncesLeft;
+    Vector2 velocity;
     std::string ownerTag;
 
     Bullet(float x, float y)
@@ -22,6 +26,7 @@ public:
 
     Bullet() {};
 
+    void OnInit() override;
     void OnUpdate() override;
     void OnDraw(Renderer* renderer) override;
     void OnCollision(Entity* other, const CollisionData* data) override;
