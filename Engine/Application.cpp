@@ -59,6 +59,7 @@ Application::Application(const short width, const short height, const short font
 }
 
 void Application::RefreshFrame() {
+    //COORD origin = { rand() % 3 - 1, rand() % 3 - 1 };
     WriteConsoleOutputW(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
 }
 

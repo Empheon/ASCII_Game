@@ -71,7 +71,7 @@ public:
 
 int main()
 {
-    Game* app = new Game(100, 80, 12, 12);
+    Game* app = new Game(100, 80, 9, 9);
     app->Run();
 
     std::cin.get();
