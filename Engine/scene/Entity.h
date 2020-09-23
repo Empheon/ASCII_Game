@@ -9,7 +9,14 @@
 class Entity
 {
     friend class Scene;
+
 public:
+    struct CollisionData {
+        enum class Direction { VERT, HOR };
+        Direction direction;
+        float penDistance;
+    };
+
     virtual std::string GetType() const = 0;
 
     std::string tag;
@@ -23,6 +30,7 @@ public:
 
     uint8_t layer;
     uint8_t layerMask;
+    bool staticBody = false;
 
     bool textured = false;
     bool destroyed;
@@ -36,17 +44,18 @@ public:
     void Draw(Renderer* renderer);
 
     void SetTag(std::string tag);
+    void SetStatic(bool st = true);
     void Move(const float& x, const float& y);
     void Move(const Vector2& vec);
 
     void Destroy();
-    bool IsColliding(Entity* other);
+    bool IsColliding(Entity* other, CollisionData* data = nullptr);
 
     virtual void OnInit() {};
     virtual void OnDestroy() {};
     virtual void OnUpdate() {};
     virtual void OnDraw(Renderer* renderer) {};
-    virtual void OnCollision(Entity* other) {};
+    virtual void OnCollision(Entity* other, const CollisionData* data) {};
 
 #ifdef _DEBUG
     bool debugCollider = false;

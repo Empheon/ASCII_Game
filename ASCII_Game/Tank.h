@@ -28,6 +28,6 @@ public:
     void OnInit() override;
     void OnUpdate() override;
     void OnDraw(Renderer* renderer) override;
-    void OnCollision(Entity* other) override;
+    void OnCollision(Entity* other, const CollisionData* data) override;
 };
 
