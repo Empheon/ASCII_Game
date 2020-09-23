@@ -41,7 +41,7 @@ void Tank::OnUpdate() {
                     canShoot = false;
                     b.position = Vector2(position.x + 2, position.y + 2);
                     b.directionAngle = cursorAngle;
-                    b.speed = 0.5f;
+                    b.speed = 1.0f;
                     b.ownerTag = tag;
                     parent->Instantiate(&b);
 
