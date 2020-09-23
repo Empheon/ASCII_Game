@@ -20,6 +20,7 @@ public:
 	Application* parent;
 
 private:
+	std::vector<Entity*> entitiesToInit;
 
 	void Update();
 	void CheckCollisions();

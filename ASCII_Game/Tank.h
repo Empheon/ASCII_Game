@@ -7,6 +7,8 @@
 #include "input/Gamepad.h"
 #include "Textures.h"
 
+#include "Bullet.h"
+
 class Tank : public Entity
 {
 public:
@@ -22,10 +24,16 @@ public:
 
     Vector2 cursor;
 
-    float cursorAngle = 90.0f;
+    Bullet bullets[5];
+    bool canShoot = true;
+
+    float cursorAngle = -3.14f / 2;
 
     Tank(const WORD& attributes, Gamepad* gamepad, float offset)
         : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11000000, 5, 5), gamepad(gamepad), offset(offset), color(attributes) {
+        for (int i = 0; i < 5; i++) {
+            bullets[i] = Bullet(0, 0);
+        }
     }
 
     void OnInit() override;

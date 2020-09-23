@@ -1,11 +1,11 @@
 #include "Entity.h"
 
 Entity::Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : textured(true), texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), parent(nullptr) {
+    : textured(true), texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(true), parent(nullptr) {
 }
 
 Entity::Entity(const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : textured(false), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(false), parent(nullptr) {
+    : textured(false), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(true), parent(nullptr) {
 }
 
 Entity::~Entity() {

@@ -19,6 +19,14 @@ void Scene::Update() {
 	}
 	CheckCollisions();
 	OnUpdate();
+
+	for (Entity* e : entitiesToInit) {
+		entities.push_back(e);
+		e->parent = this;
+		e->destroyed = false;
+		e->OnInit();
+	}
+	entitiesToInit.clear();
 }
 
 void Scene::Draw(Renderer* renderer) {
@@ -47,10 +55,7 @@ void Scene::CheckCollisions() {
 }
 
 void Scene::Instantiate(Entity* entity) {
-	entities.push_back(entity);
-	entity->parent = this;
-	entity->destroyed = false;
-	entity->OnInit();
+	entitiesToInit.push_back(entity);
 }
 
 void Scene::Destroy(Entity* entity) {

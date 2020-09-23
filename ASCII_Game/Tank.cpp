@@ -6,7 +6,7 @@ void Tank::OnInit() {
 
     cursor.x = position.x;
     cursor.y = position.y - 4.0f;
-    SetTag("tank");
+    SetTag("tank" + gamepad->GetId());
 }
 
 void Tank::OnUpdate() {
@@ -30,6 +30,26 @@ void Tank::OnUpdate() {
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_B)) {
         std::vector<Entity*> ts = parent->FindByTag("tank");
         ((Tank*)ts[0])->Destroy();
+    }
+
+    if (gamepad->IsButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
+        if (canShoot) {
+            for (Bullet& b : bullets) {
+                if (b.destroyed) {
+                    canShoot = false;
+                    b.position = Vector2(position.x + 2, position.y + 2);
+                    b.directionAngle = cursorAngle;
+                    b.speed = 0.5f;
+                    b.ownerTag = tag;
+                    parent->Instantiate(&b);
+
+                    break;
+                }
+            }
+        }
+    }
+    else {
+        canShoot = true;
     }
 }
 
