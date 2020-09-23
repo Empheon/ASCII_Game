@@ -16,8 +16,15 @@ void Tank::OnUpdate() {
 
     sx = gamepad->GetStickRX();
     sy = -gamepad->GetStickRY();
-    cursor.x = position.x + 1.0 + sx * cursorDistance;
-    cursor.y = position.y + 1.0 + sy * cursorDistance;
+    Vector2 stickR = Vector2(sx, sy);
+
+    // Update cursor if not too close from the origin
+    if (stickR.Length() > 0.2f) {
+        cursorAngle = stickR.Angle();
+    }
+
+    cursor.x = position.x + cos(cursorAngle) * cursorDistance;
+    cursor.y = position.y + sin(cursorAngle) * cursorDistance;
 
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_B)) {
         std::vector<Entity*> ts = parent->FindByTag("tank");

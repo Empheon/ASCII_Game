@@ -1,12 +1,15 @@
 #pragma once
+#include <algorithm>
+
 class Vector2
 {
 public:
 	Vector2(float x, float y);
 	Vector2();
 
-	float cross(const Vector2& other) const;
-
+	float Cross(const Vector2& other) const;
+	float Angle() const;
+	float Length() const;
 	float x, y;
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 
 #include "scene/Entity.h"
 #include "input/Gamepad.h"
@@ -20,6 +21,8 @@ public:
     WORD color;
 
     Vector2 cursor;
+
+    float cursorAngle = 90.0f;
 
     Tank(const WORD& attributes, Gamepad* gamepad, float offset)
         : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11000000, 5, 5), gamepad(gamepad), offset(offset), color(attributes) {
