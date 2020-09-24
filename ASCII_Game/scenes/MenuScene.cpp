@@ -20,15 +20,6 @@ void MenuScene::OnUpdate()
     if (readyPlayers == playerCount) {
         parent->LoadScene(new GameScene());
     }
-
-    Vector2 pos = { parent->width / 2.0f, parent->height - 20.0f };
-    if (parent->GetAppTicks() % 5 == 0) {
-        ParticleInfo info = PART_BOUNCE;
-        info.direction = ((float)rand() / RAND_MAX) * 2 * M_PI;
-        float offx = 0.0f;// ((float)rand() / RAND_MAX) * 20 - 10;
-        float offy = 0.0f;// ((float)rand() / RAND_MAX) * 2;
-        parent->particles.Emit(info, {pos.x + offx, pos.y + offy});
-    }
 }
 
 void MenuScene::OnLoad()

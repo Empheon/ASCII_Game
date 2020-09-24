@@ -17,6 +17,7 @@ public:
 	void Draw(Renderer* renderer);
 
 	void Emit(const ParticleInfo& pi, const Vector2& position);
+	void Clear(); // Clears all particles on the screen
 
 private:
 	std::vector<Particle> particlePool;

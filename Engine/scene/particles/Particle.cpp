@@ -24,5 +24,5 @@ void Particle::Update()
 
 void Particle::Draw(Renderer* renderer)
 {
-	renderer->DrawChar(position.x, position.y - zPosition, L'O', 0x0a, zIndex);
+	renderer->DrawChar(position.x, position.y - zPosition, character, color, zIndex);
 }

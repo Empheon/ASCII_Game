@@ -57,6 +57,7 @@ void GameScene::DestroyTank(Tank* tank) {
 		}
 		destroyedTanks.push(winner);
 
+		parent->particles.Clear();
 		parent->LoadScene(new ScoreScene(destroyedTanks));
 	}
 }

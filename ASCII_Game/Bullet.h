@@ -6,6 +6,16 @@
 
 #define MAX_BOUNCES 1
 
+const std::vector<wchar_t> PART_CHARS_SHRINKING_CIRCLE = { L'O', L'\u25cb', L'\u00b0', L'\u2219' };
+const ParticleInfo PART_BULLET_BASE {
+    0.4f, 0.0f, {0.0f, 0.0f},
+    0.0f, 0.0f, -0.01f, 0.0f,
+    0.6f,
+    {}, {}, -11,
+    10
+};
+
+
 class Bullet : public Entity
 {
 public:
@@ -27,5 +37,7 @@ public:
     void OnUpdate() override;
     void OnDraw(Renderer* renderer);
     void OnCollision(Entity* other, const CollisionData* data) override;
+
+    static ParticleInfo CreateBulletParticle(const float bulletDir);
 };
 

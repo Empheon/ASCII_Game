@@ -21,12 +21,13 @@ private:
 	float bounceFactor;
 	float friction;
 
-	WORD* colors;
-	wchar_t* chars;
 	int8_t zIndex;
 
 	int lifeTime;
 	int lifeLeft;
+
+	wchar_t character;
+	WORD color;
 
 	void Update();
 	void Draw(Renderer* renderer);

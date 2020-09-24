@@ -32,7 +32,7 @@ void Mine::OnDraw(Renderer* renderer) {
             renderer->DrawTexture(position.x - 1, position.y - 1, TEX_MINE_WARNING, 0x0f, 40);
         }
     } else {
-        if (lifeTime % (blinkSpeed/2) < (blinkSpeed / 4)) {
+        if (lifeTime % blinkSpeed < (blinkSpeed / 4)) {
             renderer->DrawCircle(position.x, position.y, width / 2 + 1, L'@', 0x0e, 40);
         }
     }

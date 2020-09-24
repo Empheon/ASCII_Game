@@ -8,6 +8,11 @@ void Bullet::OnInit() {
 void Bullet::OnUpdate()
 {
     Move(velocity);
+    if (parent->parent->GetAppTicks() % 3 == 0) {
+        ParticleInfo info = Bullet::CreateBulletParticle(velocity.Angle());
+        parent->parent->particles.Emit(info, position);
+    }
+
     if (position.x < 0 || position.x > parent->parent->width
         || position.y < 0 || position.y > parent->parent->height) {
         Destroy();
@@ -41,5 +46,12 @@ void Bullet::OnCollision(Entity* other, const CollisionData* data)
     } else {
         Destroy();
     }
-   
+}
+
+ParticleInfo Bullet::CreateBulletParticle(const float bulletDir) {
+    ParticleInfo part = PART_BULLET_BASE;
+    part.direction = bulletDir + RandFloatRange(-0.4, 0.4);
+    part.color = (rand() % 2 == 0) ? 0x07 : 0x08;
+    part.character = PART_CHARS_SHRINKING_CIRCLE[rand() % 4];
+    return part;
 }

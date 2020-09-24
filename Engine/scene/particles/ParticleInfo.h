@@ -1,10 +1,9 @@
 #pragma once
 
-#include <iostream>
+#include <vector>
 #include <Windows.h>
+#include "../../Random.h"
 #include "../../Vector2.h"
-
-const wchar_t PART_CHARS_SHRINKING_CIRCLE[4] = { L'O', L'\u25cb', L'\u00b0', L'\u2219' };
 
 struct ParticleInfo {
 	float velocity;
@@ -16,25 +15,25 @@ struct ParticleInfo {
 	float bounceFactor;
 	float friction;
 
-	WORD* colors;
-	wchar_t* chars;
+	WORD color;
+	wchar_t character;
 	int8_t zIndex;
 
 	int lifeTime;
 };
 
-const ParticleInfo PART_SMOKE {
+const ParticleInfo PART_SMOKE_BASE {
 	2.0f, 0.0f, {0.0f, 0.0f},
 	0.0f, 0.0f, 0.0f, 0.0f,
 	0.9f,
-	nullptr, nullptr, 60,
+	0x08, 'O', 60,
 	60
 };
 
-const ParticleInfo PART_BOUNCE {
+const ParticleInfo PART_BOUNCE_BASE {
 	1.0f, 0.0f, {0.0f, 0.0f},
 	0.0f, -2.0f, 0.1f, 0.8f,
 	0.96f,
-	nullptr, nullptr, 60,
+	{}, {}, 60,
 	60*4
 };

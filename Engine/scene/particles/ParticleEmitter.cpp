@@ -33,7 +33,17 @@ void ParticleEmitter::Emit(const ParticleInfo& pi, const Vector2& position) {
 	part.friction = pi.friction;
 
 	part.lifeLeft = pi.lifeTime;
+	part.zIndex = pi.zIndex;
 	part.active = true;
 
+	part.color = pi.color;
+	part.character = pi.character;
+
 	poolIndex = --poolIndex % particlePool.size();
+}
+
+void ParticleEmitter::Clear() {
+	for (Particle& p : particlePool) {
+		p.active = false;
+	}
 }
