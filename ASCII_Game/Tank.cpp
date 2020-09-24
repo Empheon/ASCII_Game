@@ -2,8 +2,6 @@
 #include "scenes/GameScene.h"
 
 void Tank::OnInit() {
-    Move((parent->parent->width / 2) - 2.5f + offset, (parent->parent->height / 2) - 2.5f);
-
     cursor.x = position.x;
     cursor.y = position.y - 4.0f;
     SetTag("tank" + gamepad->GetId());

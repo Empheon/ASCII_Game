@@ -24,3 +24,11 @@ public:
     void OnDraw(Renderer* renderer) override;
 };
 
+class WallInfo
+{
+public:
+    Wall wall;
+    Vector2 position;
+
+    WallInfo(Wall wall, Vector2 position) : wall(wall), position(position) {};
+};

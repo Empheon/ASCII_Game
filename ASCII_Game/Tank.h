@@ -18,8 +18,8 @@ class Tank : public Entity
 public:
     ENTITY_TYPE(Tank);
 
-    Tank(const WORD& attributes, Gamepad* gamepad, float offset)
-        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11100000, 5, 5), gamepad(gamepad), offset(offset), color(attributes) {
+    Tank(const WORD& attributes, Gamepad* gamepad)
+        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11100000, 5, 5), gamepad(gamepad), color(attributes) {
     }
     Gamepad* gamepad;
     WORD color;
@@ -30,7 +30,6 @@ private:
 
     const float speed = 0.5f;
     const float cursorDistance = 30.0f;
-    float offset;
 
     Vector2 cursor;
     int approxAngle = 0;
