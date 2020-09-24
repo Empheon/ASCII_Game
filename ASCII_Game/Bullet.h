@@ -18,12 +18,12 @@ public:
     std::string ownerTag;
 
     Bullet()
-        : Entity(TEX_BULLET, 0x0E, 0b00100000, 0b11100000, 1, 1) {
+        : Entity(TEX_BULLET, 0x0e, 0b00100000, 0b11110000, 1, 1) {
         depth = -10;
     }
 
-    void OnInit() override;
+    
+void OnInit() override;
     void OnUpdate() override;
-    void OnCollision(Entity* other, const CollisionData* data) override;
-};
+    void OnCollision(Entity* other, const CollisionData* data) override;};
 

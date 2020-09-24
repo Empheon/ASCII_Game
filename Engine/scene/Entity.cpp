@@ -51,7 +51,8 @@ void Entity::Destroy() {
 }
 
 bool Entity::IsColliding(Entity* other, CollisionData* data) {
-    if (!(other->layer & layerMask) || other == this) {
+    if (!(other->layer & layerMask) || other == this 
+            || !colliderEnabled || ! other->colliderEnabled) {
         return false;
     }
 
@@ -86,6 +87,27 @@ bool Entity::IsColliding(Entity* other, CollisionData* data) {
     return false;
 }
 
+void Entity::EnableCollider(bool enable) {
+    colliderEnabled = enable;
+}
+
+void Entity::SetOnLayer(uint8_t layerBit, bool state) {
+    if (state) {
+        layer |= 1 << layerBit;
+    }
+    else {
+        layer &= ~(1 << layerBit);
+    }
+}
+
+void Entity::SetCollisionLayer(uint8_t layerBit, bool state) {
+    if (state) {
+        layerMask |= 1 << layerBit;
+    } else {
+        layerMask &= ~(1 << layerBit);
+    }
+}
+
 void Entity::Update() {
     if (destroyed)
         return;
@@ -97,7 +119,7 @@ void Entity::Draw(Renderer* renderer) {
     if (destroyed)
         return;
     
-    if (textured)
+    if (textured && visible)
         renderer->DrawTexture(position.x, position.y, texture, attributes, depth);
     
     OnDraw(renderer);
@@ -113,6 +135,7 @@ void Entity::DrawCollider(Renderer* renderer) {
     if (parent->parent->GetAppTicks() % 60 > 20)
         return;
     wchar_t colliderChar = L'\u2593';
-    renderer->DrawRect(position.x + hitboxOffset.x, position.y + hitboxOffset.y , width, height, colliderChar, 0xbc, 127);
+    WORD color = colliderEnabled ? 0xbc : 0xcb;
+    renderer->DrawRect(position.x + hitboxOffset.x, position.y + hitboxOffset.y, width, height, colliderChar, color, 127);
 }
 #endif

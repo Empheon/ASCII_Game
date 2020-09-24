@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="ASCII_Game.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Mine.cpp" />
     <ClCompile Include="scenes\MenuScene.cpp" />
     <ClCompile Include="scenes\GameScene.cpp" />
     <ClCompile Include="scenes\ScoreScene.cpp" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Mine.h" />
     <ClInclude Include="scenes\MenuScene.h" />
     <ClInclude Include="scenes\GameScene.h" />
     <ClInclude Include="scenes\ScoreScene.h" />
