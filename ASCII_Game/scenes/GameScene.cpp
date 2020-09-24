@@ -16,7 +16,7 @@ void GameScene::OnUpdate() {
 
 void GameScene::OnLoad() {
 
-	int playerCount = parent->input.GetConnectedGamepadCount();
+	playerCount = parent->input.GetConnectedGamepadCount();
 
 	for (int i = 0; i < playerCount; ++i) {
 		Gamepad* gp = parent->input.GetGamepad(i);
@@ -42,4 +42,12 @@ void GameScene::OnLoad() {
 
 void GameScene::OnPreDraw(Renderer* renderer) {
 	renderer->Clear(' ', 0x07);
+}
+
+void GameScene::DestroyTank(Tank* tank) {
+	destroyedTanks.push_back(tank);
+
+	if (destroyedTanks.size() == playerCount - 1) {
+		parent->LoadScene(new GameScene());
+	}
 }

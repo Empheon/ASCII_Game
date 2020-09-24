@@ -1,4 +1,5 @@
 #include "Tank.h"
+#include "scenes/GameScene.h"
 
 void Tank::OnInit() {
     Move((parent->parent->width / 2) - 2.5f + offset, (parent->parent->height / 2) - 2.5f);
@@ -96,6 +97,12 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
     if (other->GetType() == "Bullet" && ((Bullet*) other)->ownerTag != tag) {
         hitPoints--;
         parent->parent->renderer->DoScreenShake(1.5f);
+
+
+        if (hitPoints <= 0) {
+            ((GameScene*)parent)->DestroyTank(this);
+            Destroy();
+        }
     }
 }
 

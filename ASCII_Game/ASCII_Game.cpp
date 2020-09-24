@@ -6,12 +6,14 @@
 #include "Tank.h"
 
 #include "scenes/GameScene.h"
+#include "scenes/MenuScene.h"
 
 
 class Game : public Application
 {
 public:
     GameScene gs;
+    MenuScene ms;
 
     std::vector<std::pair<float, float>> points;
     Game(const short width, const short height, const short fontW, const short fontH)
@@ -19,8 +21,12 @@ public:
     }
 
     void OnInit() override {
-        
-        LoadScene(&gs);
+        LoadScene(new MenuScene());
+        //LoadScene(&gs);
+    }
+
+    void LoadRandomGameScene() {
+        LoadScene(new GameScene());
     }
 
     void OnUpdate() override {

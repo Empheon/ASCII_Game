@@ -31,6 +31,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Mine.cpp">
+			<Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scenes\MenuScene.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,6 +54,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Mine.h">
+			<Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="scenes\MenuScene.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

@@ -124,6 +124,10 @@ void Application::Run()
             lastPrint = currentTime;
         }
 #endif
+        if (sceneToDelete != nullptr) {
+            delete sceneToDelete;
+            sceneToDelete = nullptr;
+        }
     }
 }
 
@@ -159,7 +163,7 @@ size_t Application::GetAppTicks() const
 
 void Application::LoadScene(Scene* scene) {
     if (currentScene != nullptr) {
-        currentScene->parent = nullptr;
+        sceneToDelete = currentScene;
     }
     currentScene = scene;
     currentScene->parent = this;

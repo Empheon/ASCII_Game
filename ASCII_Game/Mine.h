@@ -11,7 +11,10 @@ class Mine : public Entity
 public:
 	ENTITY_TYPE(Mine);
 
-	Mine();
+	Mine() 
+		: Entity(0b00100000, 0b00000000, 8, 8, {-4, -4}) {
+
+	}
 
 private:
 	int lifetime;

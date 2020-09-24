@@ -61,7 +61,7 @@ public:
     virtual void OnCollision(Entity* other, const CollisionData* data) {};
 
 #ifdef _DEBUG
-    bool debugCollider = true;
+    bool debugCollider = false;
     void DrawCollider(Renderer* renderer);
 #endif
 
