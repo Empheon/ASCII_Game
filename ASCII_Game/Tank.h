@@ -23,13 +23,13 @@ public:
             bullets[i] = Bullet(0, 0);
         }
     }
+    Gamepad* gamepad;
 
 private:
     Texture cursorTexture = TEX_TANK_CURSOR;
     WORD color;
     const Vector2 cannonOffset = Vector2(2, 2);
 
-    Gamepad* gamepad;
     const float speed = 0.5f;
     const float cursorDistance = 20.0f;
     float offset;
