@@ -123,6 +123,10 @@ void Application::Run()
             lastPrint = currentTime;
         }
 #endif
+        if (sceneToDelete != nullptr) {
+            delete sceneToDelete;
+            sceneToDelete = nullptr;
+        }
     }
 }
 
@@ -153,7 +157,7 @@ void Application::Draw() {
 
 void Application::LoadScene(Scene* scene) {
     if (currentScene != nullptr) {
-        currentScene->parent = nullptr;
+        sceneToDelete = currentScene;
     }
     currentScene = scene;
     currentScene->parent = this;

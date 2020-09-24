@@ -36,6 +36,7 @@ public:
 
 protected:
     Scene* currentScene;
+    Scene* sceneToDelete;
 
 private:
 	bool running;
