@@ -100,8 +100,8 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
 
 
         if (hitPoints <= 0) {
-            ((GameScene*)parent)->DestroyTank(this);
             Destroy();
+            ((GameScene*)parent)->DestroyTank(this);
         }
     }
 }

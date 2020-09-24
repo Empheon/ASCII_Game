@@ -22,10 +22,10 @@ public:
         : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11100000, 5, 5), gamepad(gamepad), offset(offset), color(attributes) {
     }
     Gamepad* gamepad;
+    WORD color;
 
 private:
     Texture cursorTexture = TEX_TANK_CURSOR;
-    WORD color;
     const Vector2 cannonOffset = Vector2(2, 2);
 
     const float speed = 0.5f;

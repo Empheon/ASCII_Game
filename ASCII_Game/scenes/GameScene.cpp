@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "ScoreScene.h"
 
 GameScene::GameScene() {
 }
@@ -45,9 +46,19 @@ void GameScene::OnPreDraw(Renderer* renderer) {
 }
 
 void GameScene::DestroyTank(Tank* tank) {
-	destroyedTanks.push_back(tank);
+	destroyedTanks.push(tank);
 
 	if (destroyedTanks.size() == playerCount - 1) {
-		parent->LoadScene(new GameScene());
+
+		Tank* winner;
+		for (auto& t : tanks) {
+			if (t.destroyed == false) {
+				winner = &t;
+				break;
+			}
+		}
+		destroyedTanks.push(winner);
+
+		parent->LoadScene(new ScoreScene(destroyedTanks));
 	}
 }
