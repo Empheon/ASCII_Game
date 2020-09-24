@@ -32,6 +32,7 @@ public:
     void Run();
     void Stop();
 
+    size_t GetAppTicks() const;
     void LoadScene(Scene* scene);
 
 protected:
@@ -44,6 +45,7 @@ private:
     COORD dwBufferSize;
     COORD dwBufferCoord;
     SMALL_RECT rcRegion;
+    size_t appTicks; // Total number of ticks since application start
 
     void UpdateInputs();
     void Update();

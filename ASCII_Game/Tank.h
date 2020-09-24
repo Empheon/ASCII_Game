@@ -11,6 +11,7 @@
 #include "Textures.h"
 
 #include "Bullet.h"
+#include "Mine.h"
 
 class Tank : public Entity
 {
@@ -19,9 +20,6 @@ public:
 
     Tank(const WORD& attributes, Gamepad* gamepad, float offset)
         : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11100000, 5, 5), gamepad(gamepad), offset(offset), color(attributes) {
-        for (int i = 0; i < 5; i++) {
-            bullets[i] = Bullet(0, 0);
-        }
     }
 
 private:
@@ -31,14 +29,16 @@ private:
 
     Gamepad* gamepad;
     const float speed = 0.5f;
-    const float cursorDistance = 20.0f;
+    const float cursorDistance = 30.0f;
     float offset;
 
     Vector2 cursor;
     int approxAngle = 0;
 
     Bullet bullets[5];
+    Mine mines[3];
     bool canShoot = true;
+    bool canPlaceMine = true;
 
     float cursorAngle = -3.14f / 2;
 

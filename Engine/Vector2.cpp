@@ -19,3 +19,7 @@ float Vector2::Length() const {
 float Vector2::Cross(const Vector2& other) const {
 	return x * other.y + y * other.x;
 }
+
+Vector2 Vector2::operator+(const Vector2& other) {
+    return Vector2(x + other.x, y + other.y);
+}

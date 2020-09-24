@@ -1,5 +1,9 @@
 #include "Wall.h"
 
+void Wall::OnInit() {
+	SetStatic();
+}
+
 void Wall::OnDraw(Renderer* renderer) {
 	
 	renderer->DrawChar(position.x, position.y, WALL_TOP_LEFT, 0x0f);

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "../Vector2.h"
 #include "../Application.h"
 
 class Entity;
@@ -13,7 +14,7 @@ class Scene
 public:
 	Scene();
 	virtual ~Scene();
-	void Instantiate(Entity* entity);
+	void Instantiate(Entity* entity, const Vector2 position = {0, 0});
 	void Destroy(Entity* entity);
 	std::vector<Entity*> FindByTag(std::string tag);
 	

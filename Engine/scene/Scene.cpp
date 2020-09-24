@@ -20,11 +20,12 @@ void Scene::Update() {
 	CheckCollisions();
 	OnUpdate();
 
-	for (Entity* e : entitiesToInit) {
+	for (auto& e : entitiesToInit) {
 		entities.push_back(e);
 		e->parent = this;
 		e->destroyed = false;
 		e->OnInit();
+		
 	}
 	entitiesToInit.clear();
 }
@@ -55,7 +56,8 @@ void Scene::CheckCollisions() {
 	}
 }
 
-void Scene::Instantiate(Entity* entity) {
+void Scene::Instantiate(Entity* entity, const Vector2 position) {
+	entity->SetPosition(position);
 	entitiesToInit.push_back(entity);
 }
 

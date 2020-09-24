@@ -2,7 +2,7 @@
 #include "scene/Scene.h"
 
 Application::Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS)
-    : targetFPS(targetFPS)
+    : targetFPS(targetFPS), appTicks(0)
 {
     Application::width = width;
     Application::height = height;
@@ -106,6 +106,7 @@ void Application::Run()
 #ifdef _DEBUG
             updates++;
 #endif
+            appTicks++;
             delta -= frameMillis;
         }
 
@@ -149,6 +150,11 @@ void Application::Draw() {
         currentScene->Draw(renderer);
     }
     OnPostDraw();
+}
+
+size_t Application::GetAppTicks() const
+{
+    return appTicks;
 }
 
 void Application::LoadScene(Scene* scene) {

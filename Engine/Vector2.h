@@ -11,5 +11,7 @@ public:
 	float Angle() const;
 	float Length() const;
 	float x, y;
+
+	Vector2 operator+(const Vector2& other);
 };
 

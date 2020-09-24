@@ -54,14 +54,17 @@ void Renderer::DrawChar(const int x, const int y, const wchar_t c, const WORD& a
     SetDepth(x, y, z);
 }
 
-void Renderer::Draw4DLine(const int x1, const int y1, const int x2, const int y2, const WORD& attributes, int8_t z) {
-    if (x1 == x2) { // Draw a vertical line
-        for (int y = min(y1, y2); y < max(y1, y2); y++) {
-            Renderer::DrawChar(x1, y, L'\u2502', attributes, z);
+void Renderer::Draw4DLine(const int x1, const int y1, const int x2, const int y2, const WORD& attributes, int8_t z, const wchar_t c) {
+    wchar_t cUsed = c;
+    if (y1 == y2 && y1 >= 0) { // Draw an horizontal line
+        if (c == 0) cUsed = L'\u2500';
+        for (int x = max(0, min(x1, x2)); x < max(x1, x2) && x < width; x++) {
+            DrawChar(x, y1, c, attributes, z);
         }
-    } else if (y1 == y2) { // Draw an horizontal line
-        for (int x = min(x1, x2); x < max(x1, x2); x++) {
-            Renderer::DrawChar(x, y1, L'\u2500', attributes, z);
+    } else if (x1 == x2 && x1 >= 0) { // Draw a vertical line
+        if (c == 0) cUsed = L'\u2502';
+        for (int y = max(0, min(y1, y2)); y < max(y1, y2) && y < height; y++) {
+            DrawChar(x1, y, c, attributes, z);
         }
     }
 }
@@ -70,6 +73,20 @@ void Renderer::DrawRect(const int x, const int y, const int width, const int hei
     for (int i = max(0, x); i < min((short)(x + width), this->width); i++) {
         for (int j = max(0, y); j < min((short)(y + height), this->height); j++) {
             DrawChar(i, j, c, attributes, z);
+        }
+    }
+}
+
+void Renderer::DrawCircle(const int cx, const int cy, const int radius, const wchar_t c, const WORD& attributes, int8_t z) {
+    int maxX = radius;
+    for (int y = 0; y <= radius; ++y) {
+        for (int x = maxX; x >= 0; --x) {
+            if ((x * x) + (y * y) < (radius * radius)) {
+                Draw4DLine(cx - x, cy + y, cx + x, cy + y, attributes, z, c);
+                Draw4DLine(cx - x, cy - y, cx + x, cy - y, attributes, z, c);
+                maxX = x;
+                break;
+            }
         }
     }
 }

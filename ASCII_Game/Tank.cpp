@@ -39,12 +39,10 @@ void Tank::OnUpdate() {
             for (Bullet& b : bullets) {
                 if (b.destroyed) {
                     canShoot = false;
-                    b.position = Vector2(position.x + 2, position.y + 2);
                     b.directionAngle = cursorAngle;
                     b.speed = 1.0f;
                     b.ownerTag = tag;
-                    parent->Instantiate(&b);
-
+                    parent->Instantiate(&b, position + cannonOffset);
                     break;
                 }
             }
@@ -81,6 +79,7 @@ void Tank::OnDraw(Renderer* renderer) {
     }
 
     renderer->DrawString(position.x, position.y - 2, hpStr.str(), hpColor, 99);
+      // renderer->DrawCircle(position.x, position.y, 10, L'\u2666', 0x0f, 127);
 };
 
 void Tank::OnCollision(Entity* other, const CollisionData* data) {

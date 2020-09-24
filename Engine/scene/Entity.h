@@ -26,7 +26,7 @@ public:
 
     Vector2 position;
     Vector2 prevPosition;
-    float yPrev;
+    Vector2 hitboxOffset;
     float width;
     float height;
 
@@ -37,8 +37,8 @@ public:
     bool textured = false;
     bool destroyed;
 
-    Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layermask, const float& width, const float& height);
-    Entity(const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height);
+    Entity(const Texture& texture, const WORD& attributes, const uint8_t layer, const uint8_t layermask, const float width, const float height, const Vector2 hitboxOffset = {0.0f, 0.0f});
+    Entity(const uint8_t layer, const uint8_t layerMask, const float width, const float height, const Vector2 hitboxOffset = { 0.0f, 0.0f });
     Entity() {};
     virtual ~Entity();
 
@@ -49,6 +49,7 @@ public:
     void SetStatic(bool st = true);
     void Move(const float& x, const float& y);
     void Move(const Vector2& vec);
+    void SetPosition(const Vector2& vec);
 
     void Destroy();
     bool IsColliding(Entity* other, CollisionData* data = nullptr);
@@ -60,7 +61,7 @@ public:
     virtual void OnCollision(Entity* other, const CollisionData* data) {};
 
 #ifdef _DEBUG
-    bool debugCollider = false;
+    bool debugCollider = true;
     void DrawCollider(Renderer* renderer);
 #endif
 

@@ -1,11 +1,11 @@
 #include "Entity.h"
 
-Entity::Entity(const Texture& texture, const WORD& attributes, const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : textured(true), texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(true), parent(nullptr), depth(0) {
+Entity::Entity(const Texture& texture, const WORD& attributes, const uint8_t layer, const uint8_t layerMask, const float width, const float height, const Vector2 hitboxOffset)
+    : textured(true), texture(texture), attributes(attributes), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(true), parent(nullptr), depth(0), hitboxOffset(hitboxOffset) {
 }
 
-Entity::Entity(const uint8_t& layer, const uint8_t& layerMask, const float& width, const float& height)
-    : textured(false), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(true), parent(nullptr), depth(0) {
+Entity::Entity(const uint8_t layer, const uint8_t layerMask, const float width, const float height, const Vector2 hitboxOffset)
+    : textured(false), layer(layer), layerMask(layerMask), width(width), height(height), destroyed(true), parent(nullptr), depth(0), hitboxOffset(hitboxOffset) {
 }
 
 Entity::~Entity() {
@@ -31,12 +31,19 @@ void Entity::Move(const float& x, const float& y) {
 }
 
 void Entity::Move(const Vector2& vec) {
-    if (staticBody)
+    if (staticBody) 
         return;
     prevPosition.x = this->position.x;
     prevPosition.y = this->position.y;
     this->position.x += vec.x;
     this->position.y += vec.y;
+}
+
+void Entity::SetPosition(const Vector2& vec) {
+    prevPosition.x = this->position.x;
+    prevPosition.y = this->position.y;
+    this->position.x = vec.x;
+    this->position.y = vec.y;
 }
 
 void Entity::Destroy() {
@@ -48,24 +55,32 @@ bool Entity::IsColliding(Entity* other, CollisionData* data) {
         return false;
     }
 
-    // Horizontal collision check
-    bool vert = (prevPosition.x + width < other->prevPosition.x && position.x + width >= other->position.x)
-        || (prevPosition.x >= other->prevPosition.x + other->width && position.x < other->position.x + other->width);
+    float ox = hitboxOffset.x;
+    float oy = hitboxOffset.y;
+    float oox = other->hitboxOffset.x;
+    float ooy = other->hitboxOffset.y;
 
-    bool hor = (prevPosition.y + height < other->prevPosition.y && position.y + height >= other->position.y)
-        || (prevPosition.y >= other->prevPosition.y + other->height && position.y < other->position.y + other->height);
-
-    bool x = position.x < other->position.x + other->width &&
-        position.x + width >= other->position.x;
-    bool y = position.y < other->position.y + other->height &&
-        position.y + height > other->position.y;
+    bool x = position.x + ox < other->position.x + other->width + oox &&
+        position.x + width + ox > other->position.x + oox;
+    bool y = position.y + oy < other->position.y + other->height + ooy &&
+        position.y + height + oy > other->position.y + ooy;
 
     if (x && y) {
         if (data != nullptr) {
+            // Collision direction check
+            bool vert = (prevPosition.x + width + ox < other->prevPosition.x + oox
+                && position.x + width + ox >= other->position.x + oox)
+                || (prevPosition.x + ox >= other->prevPosition.x + other->width + oox
+                    && position.x + ox < other->position.x + other->width + oox);
+
+            bool hor = (prevPosition.y + height + oy < other->prevPosition.y + ooy
+                && position.y + height + oy >= other->position.y + ooy)
+                || (prevPosition.y + oy >= other->prevPosition.y + other->height + ooy
+                    && position.y + oy < other->position.y + other->height + ooy);
+
             if (hor) data->direction = CollisionData::Direction::HOR;
             else if (vert) data->direction = CollisionData::Direction::VERT;
         }
-
         return true;
     }
     return false;
@@ -95,7 +110,9 @@ void Entity::Draw(Renderer* renderer) {
 
 #ifdef _DEBUG
 void Entity::DrawCollider(Renderer* renderer) {
+    if (parent->parent->GetAppTicks() % 60 > 20)
+        return;
     wchar_t colliderChar = L'\u2593';
-    renderer->DrawRect(position.x, position.y, width, height, colliderChar, 0xbc, 127);
+    renderer->DrawRect(position.x + hitboxOffset.x, position.y + hitboxOffset.y , width, height, colliderChar, 0xbc, 127);
 }
 #endif

@@ -15,11 +15,11 @@ class Wall : public Entity
 public:
     ENTITY_TYPE(Wall);
 
-    Wall(float x, float y, float w, float h)
+    Wall(float w, float h)
         : Entity(0b01000000, 0b00000000, w, h) {
-        Move(x, y);
-        SetStatic();
     }
+
+    void OnInit() override;
 
     void OnDraw(Renderer* renderer) override;
 };
