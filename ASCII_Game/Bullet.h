@@ -23,7 +23,9 @@ public:
     }
 
     
-void OnInit() override;
+    void OnInit() override;
     void OnUpdate() override;
-    void OnCollision(Entity* other, const CollisionData* data) override;};
+    void OnDraw(Renderer* renderer);
+    void OnCollision(Entity* other, const CollisionData* data) override;
+};
 

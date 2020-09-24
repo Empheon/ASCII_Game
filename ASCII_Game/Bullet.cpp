@@ -14,6 +14,11 @@ void Bullet::OnUpdate()
     }
 }
 
+void Bullet::OnDraw(Renderer* renderer)
+{
+    renderer->DrawChar(prevPosition.x, prevPosition.y, L'\u25cb', 0x0e, depth);
+}
+
 void Bullet::OnCollision(Entity* other, const CollisionData* data)
 {
     if (other->tag == ownerTag) {

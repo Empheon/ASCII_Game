@@ -21,7 +21,7 @@ public:
     ENTITY_TYPE(Tank);
 
     Tank(const WORD& attributes, Gamepad* gamepad)
-        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11100000, 5, 5), gamepad(gamepad), color(attributes) {
+        : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11110000, 5, 5), gamepad(gamepad), color(attributes) {
     }
     Gamepad* gamepad;
     WORD color;

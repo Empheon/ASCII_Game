@@ -36,7 +36,7 @@ void Tank::OnUpdate() {
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
         if (canShoot) {
             for (Bullet& b : bullets) {
-                if (b.destroyed) {
+                if (!b.IsValidInstance()) {
                     canShoot = false;
                     b.directionAngle = cursorAngle;
                     b.speed = 1.0f;
@@ -54,7 +54,7 @@ void Tank::OnUpdate() {
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
         if (canPlaceMine) {
             for (Mine& m : mines) {
-                if (m.destroyed) {
+                if (!m.IsValidInstance()) {
                     canPlaceMine = false;
                     m.ownerTag = tag;
                     m.color = attributes;
@@ -104,7 +104,7 @@ void Tank::OnDraw(Renderer* renderer) {
 void Tank::OnCollision(Entity* other, const CollisionData* data) {
     std::wstringstream ss;
 
-    if (other->GetType() == "Wall") {
+    if (other->GetType() == "Wall" || other->GetType() == "Tank") {
         if (data->direction == CollisionData::Direction::HOR) {
             position.y = prevPosition.y;
         } else if (data->direction == CollisionData::Direction::VERT) {
@@ -120,9 +120,8 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
     }
 
     if (other->GetType() == "Mine") {
-        std::wstringstream ss;
-        ss << "[MINE] KABOOOOOM !" << std::endl;
-        OutputDebugString(ss.str().c_str());
+        Hit();
+        parent->parent->renderer->DoScreenShake(1.8f);
     }
 }
 
