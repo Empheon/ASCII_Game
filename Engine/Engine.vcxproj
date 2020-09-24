@@ -196,6 +196,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="scene\particles\ParticleEmitter.h" />
+    <ClInclude Include="scene\particles\Particle.h" />
+    <ClInclude Include="scene\particles\ParticleInfo.h" />
     <ClInclude Include="scene\Scene.h" />
     <ClInclude Include="scene\Entity.h" />
     <ClInclude Include="input\Gamepad.h" />
@@ -207,6 +210,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="scene\particles\ParticleEmitter.cpp" />
+    <ClCompile Include="scene\particles\Particle.cpp" />
     <ClCompile Include="scene\Scene.cpp" />
     <ClCompile Include="scene\Entity.cpp" />
     <ClCompile Include="input\Gamepad.cpp" />

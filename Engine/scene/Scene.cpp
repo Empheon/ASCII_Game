@@ -11,7 +11,10 @@ void Scene::Update() {
 	auto it = entities.begin();
 	while (it != entities.end()) {
 		if ((*it)->destroyed) {
+			Entity* e(*it);
 			it = entities.erase(it);
+			if (e->toFree)
+				delete e;
 		} else {
 			(*it)->Update();
 			++it;
@@ -61,8 +64,8 @@ void Scene::Instantiate(Entity* entity, const Vector2 position) {
 	entitiesToInit.push_back(entity);
 }
 
-void Scene::Destroy(Entity* entity) {
-	entity->Destroy();
+void Scene::Destroy(Entity* entity, bool free) {
+	entity->Destroy(free);
 	entity->parent = nullptr;
 	entity->OnDestroy();
 }

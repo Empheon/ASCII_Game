@@ -15,7 +15,7 @@ public:
 	Scene();
 	virtual ~Scene();
 	void Instantiate(Entity* entity, const Vector2 position = {0, 0});
-	void Destroy(Entity* entity);
+	void Destroy(Entity* entity, bool free = false);
 	std::vector<Entity*> FindByTag(std::string tag);
 	
 	Application* parent;

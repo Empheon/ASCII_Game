@@ -37,7 +37,6 @@ public:
 
     bool visible = true;
     bool textured = false;
-    bool destroyed;
 
     Entity(const Texture& texture, const WORD& attributes, const uint8_t layer, const uint8_t layermask, const float width, const float height, const Vector2 hitboxOffset = {0.0f, 0.0f});
     Entity(const uint8_t layer, const uint8_t layerMask, const float width, const float height, const Vector2 hitboxOffset = { 0.0f, 0.0f });
@@ -53,7 +52,8 @@ public:
     void Move(const Vector2& vec);
     void SetPosition(const Vector2& vec);
 
-    void Destroy();
+    void Destroy(bool free = false);
+    bool IsValidInstance();
     bool IsColliding(Entity* other, CollisionData* data = nullptr);
     void EnableCollider(bool enable = true);
     void SetOnLayer(uint8_t layerBit, bool state = true); // Places the object on the physic layer
@@ -72,5 +72,8 @@ public:
 
 protected:
     Scene* parent;
+
+private:
+    bool destroyed, toFree;
 };
 

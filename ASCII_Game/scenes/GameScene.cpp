@@ -50,7 +50,7 @@ void GameScene::DestroyTank(Tank* tank) {
 	if (destroyedTanks.size() == playerCount - 1) {
 		Tank* winner;
 		for (auto& t : tanks) {
-			if (t.destroyed == false) {
+			if (t.IsValidInstance()) {
 				winner = &t;
 				break;
 			}

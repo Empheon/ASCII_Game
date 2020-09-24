@@ -1,5 +1,4 @@
 #pragma once
-#include <algorithm>
 
 class Vector2
 {
@@ -10,8 +9,14 @@ public:
 	float Cross(const Vector2& other) const;
 	float Angle() const;
 	float Length() const;
-	float x, y;
 
+	Vector2& operator=(const Vector2& other);
 	Vector2 operator+(const Vector2& other);
+	Vector2& operator+=(const Vector2& other);
+	Vector2& operator*=(const float f);
+
+	static Vector2 fromPolar(float length, float angle);
+
+	float x, y;
 };
 

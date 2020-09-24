@@ -46,8 +46,14 @@ void Entity::SetPosition(const Vector2& vec) {
     this->position.y = vec.y;
 }
 
-void Entity::Destroy() {
+void Entity::Destroy(bool free) {
     destroyed = true;
+    toFree = free;
+}
+
+bool Entity::IsValidInstance()
+{
+    return !destroyed;
 }
 
 bool Entity::IsColliding(Entity* other, CollisionData* data) {

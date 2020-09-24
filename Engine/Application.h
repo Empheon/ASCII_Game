@@ -6,6 +6,7 @@
 
 #include "Timer.h"
 #include "input/InputManager.h"
+#include "scene/particles/ParticleEmitter.h"
 
 class Scene;
 
@@ -19,6 +20,7 @@ public:
 
     Renderer* renderer;
     InputManager input;
+    ParticleEmitter particles;
 
     Application(const short width, const short height, const short fontW, const short fontH, const float targetFPS);
     ~Application();

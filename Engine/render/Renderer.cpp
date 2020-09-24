@@ -46,6 +46,8 @@ void Renderer::SetDepth(const int x, const int y, int8_t z) {
 }
 
 void Renderer::DrawChar(const int x, const int y, const wchar_t c, const WORD& attributes, int8_t z) {
+    if (x < 0 || y < 0 || x >= width || y >= height)
+        return;
     if (z < GetDepthAt(x, y))
         return;
     CHAR_INFO* ci = GetCharAt(x, y);

@@ -146,6 +146,7 @@ void Application::Update() {
         currentScene->Update();
     }
     OnUpdate();
+    particles.Update();
 }
 
 void Application::Draw() {
@@ -153,6 +154,7 @@ void Application::Draw() {
     if (currentScene != nullptr) {
         currentScene->Draw(renderer);
     }
+    particles.Draw(renderer);
     OnPostDraw();
 }
 
