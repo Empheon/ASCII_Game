@@ -50,8 +50,28 @@ void Tank::OnUpdate() {
     else {
         canShoot = true;
     }
+
+    if (gamepad->IsButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
+        if (canPlaceMine) {
+            for (Mine& m : mines) {
+                if (m.destroyed) {
+                    canPlaceMine = false;
+                    m.ownerTag = tag;
+                    m.color = attributes;
+                    parent->Instantiate(&m, position + cannonOffset);
+                    break;
+                }
+            }
+        }
+    }
+    else {
+        canPlaceMine = true;
+    }
     
     approxAngle = round((cursorAngle + M_PI) / M_PI * 4.0f);
+
+    invincibilityDelay = max(0, invincibilityDelay-1);
+    visible = (invincibilityDelay % 4 < 2);
 }
 
 void Tank::OnDraw(Renderer* renderer) {
@@ -90,20 +110,38 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
         } else if (data->direction == CollisionData::Direction::VERT) {
             position.x = prevPosition.x;
         }
+        return;
     }
 
     if (other->GetType() == "Bullet" && ((Bullet*) other)->ownerTag != tag) {
-        hitPoints--;
+        Hit();
         parent->parent->renderer->DoScreenShake(1.5f);
+        return;
+    }
 
-
-        if (hitPoints <= 0) {
-            Destroy();
-            ((GameScene*)parent)->DestroyTank(this);
-        }
+    if (other->GetType() == "Mine") {
+        std::wstringstream ss;
+        ss << "[MINE] KABOOOOOM !" << std::endl;
+        OutputDebugString(ss.str().c_str());
     }
 }
 
 void Tank::DrawCannon(Renderer* renderer) const {
     renderer->DrawTexture(position.x - 1, position.y - 1, TEX_TANK_CANNON[approxAngle % 8], color, depth);
+}
+
+void Tank::Hit() {
+    if (invincibilityDelay > 0)
+        return;
+    hitPoints--;
+    SetInvincible();
+
+    if (hitPoints <= 0) {
+        Destroy();
+        ((GameScene*)parent)->DestroyTank(this);
+    }
+}
+
+void Tank::SetInvincible() {
+    invincibilityDelay = INVINCIBILITY_TIME * parent->parent->targetFPS;
 }

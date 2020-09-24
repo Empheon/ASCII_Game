@@ -33,7 +33,9 @@ public:
     uint8_t layer;
     uint8_t layerMask;
     bool staticBody = false;
+    bool colliderEnabled = true;
 
+    bool visible = true;
     bool textured = false;
     bool destroyed;
 
@@ -53,6 +55,9 @@ public:
 
     void Destroy();
     bool IsColliding(Entity* other, CollisionData* data = nullptr);
+    void EnableCollider(bool enable = true);
+    void SetOnLayer(uint8_t layerBit, bool state = true); // Places the object on the physic layer
+    void SetCollisionLayer(uint8_t layerBit, bool state = true); // Set the object to interract with the layer
 
     virtual void OnInit() {};
     virtual void OnDestroy() {};

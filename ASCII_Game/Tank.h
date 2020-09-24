@@ -13,6 +13,8 @@
 #include "Bullet.h"
 #include "Mine.h"
 
+#define INVINCIBILITY_TIME 1.0
+
 class Tank : public Entity
 {
 public:
@@ -42,6 +44,7 @@ private:
     float cursorAngle = -3.14f / 2;
 
     int hitPoints = 5;
+    int invincibilityDelay = 0;
     
     void DrawCannon(Renderer* renderer) const;
 
@@ -49,5 +52,8 @@ private:
     void OnUpdate() override;
     void OnDraw(Renderer* renderer) override;
     void OnCollision(Entity* other, const CollisionData* data) override;
+
+    void Hit();
+    void SetInvincible();
 };
 

@@ -12,6 +12,7 @@ class Scene;
 class Application
 {
 public:
+    const float targetFPS;
     int width, height;
 
     HANDLE hOutput;
@@ -42,7 +43,6 @@ protected:
 private:
 	bool running;
 	Timer loopTimer;
-	float targetFPS;
     COORD dwBufferSize;
     COORD dwBufferCoord;
     SMALL_RECT rcRegion;
