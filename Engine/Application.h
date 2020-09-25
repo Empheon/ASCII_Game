@@ -47,8 +47,11 @@ private:
 	Timer loopTimer;
     COORD dwBufferSize;
     COORD dwBufferCoord;
+    HWND hwnd_console;
     SMALL_RECT rcRegion;
     size_t appTicks; // Total number of ticks since application start
+
+    int posx, posy;
 
     void UpdateInputs();
     void Update();

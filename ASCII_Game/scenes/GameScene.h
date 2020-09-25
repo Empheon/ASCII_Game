@@ -32,7 +32,7 @@ protected:
     void OnPreDraw(Renderer* renderer) override;
 
 private:
-    int prevLevelIndex = -1;
+    inline static int prevLevelIndex = -1;
 
     LevelInfo level1() {
         std::vector<WallInfo> wallInfos;
