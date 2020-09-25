@@ -34,6 +34,6 @@ const ParticleInfo PART_BOUNCE_BASE {
 	1.0f, 0.0f, {0.0f, 0.0f},
 	0.0f, -2.0f, 0.1f, 0.8f,
 	0.96f,
-	{}, {}, 60,
+	0x08, L'0', 60,
 	60*4
 };
