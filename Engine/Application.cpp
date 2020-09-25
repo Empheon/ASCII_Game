@@ -17,7 +17,7 @@ Application::Application(const short width, const short height, const short font
 
     // Set windows style
     LONG_PTR new_style = (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU);
-    HWND hwnd_console = GetConsoleWindow();
+    hwnd_console = GetConsoleWindow();
     LONG_PTR style_ptr = SetWindowLongPtr(hwnd_console, GWL_STYLE, new_style);
 
     // Set initial size
@@ -42,8 +42,8 @@ Application::Application(const short width, const short height, const short font
     GetConsoleScreenBufferInfo(hOutput, &sbInfo);
 
     // Set window size
-    int posx = (GetSystemMetrics(SM_CXSCREEN) - (sbInfo.dwSize.X * fontW)) / 2;
-    int posy = (GetSystemMetrics(SM_CYSCREEN) - (sbInfo.dwSize.Y * fontH)) / 2;
+    posx = (GetSystemMetrics(SM_CXSCREEN) - (sbInfo.dwSize.X * fontW)) / 2;
+    posy = (GetSystemMetrics(SM_CYSCREEN) - (sbInfo.dwSize.Y * fontH)) / 2;
     SetWindowPos(hwnd_console, HWND_TOP, posx, posy, 0, 0, SWP_FRAMECHANGED | SWP_NOSIZE);
 
     // Hide cursor 
@@ -69,7 +69,9 @@ void Application::RefreshFrame() {
 
     COORD origin = { rx, ry };
 
-    WriteConsoleOutputW(hOutput, renderer->buffer, dwBufferSize, origin, &rcRegion);
+    WriteConsoleOutputW(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
+
+    SetWindowPos(hwnd_console, HWND_TOP, posx + rx * 5, posy + ry * 5, 0, 0, SWP_FRAMECHANGED | SWP_NOSIZE);
 }
 
 Application::~Application() {

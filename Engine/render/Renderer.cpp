@@ -130,5 +130,8 @@ void Renderer::DoScreenShake(float force)
 
 void Renderer::Update()
 {
-    shakeForce *= 0.95f;
+    if (shakeForce < 0.1f) {
+        shakeForce = 0;
+    }
+    shakeForce *= 0.92f;
 }
