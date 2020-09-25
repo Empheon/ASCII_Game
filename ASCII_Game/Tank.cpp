@@ -138,6 +138,7 @@ void Tank::Hit() {
     SetInvincible();
 
     if (hitPoints <= 0) {
+        parent->parent->renderer->FreezeFrame(12);
         Destroy();
         ((GameScene*)parent)->DestroyTank(this);
     }
