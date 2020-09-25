@@ -2,6 +2,11 @@
 #include "ScoreScene.h"
 
 GameScene::GameScene() {
+	levels = {
+		level1(),
+		level2(),
+		level3()
+	};
 }
 
 GameScene::~GameScene() {
@@ -11,12 +16,13 @@ void GameScene::OnUpdate() {
 }
 
 void GameScene::OnLoad() {
+	int randomLevelIndex;
+	do {
+		randomLevelIndex = (int)(((double)rand() / RAND_MAX) * levels.size());
+	} while (randomLevelIndex == prevLevelIndex && levels.size() > 1);
+	prevLevelIndex = randomLevelIndex;
 
-	levels = {
-		level1()
-	};
-
-	LevelInfo* currentLevel = &levels[0];
+	LevelInfo* currentLevel = &levels[randomLevelIndex];
 
 	for (WallInfo& wi : currentLevel->walls) {
 		Instantiate(&wi.wall, wi.position);
