@@ -5,6 +5,8 @@
 
 #include "../Textures.h"
 
+#define START_GAME_DELAY 2.0
+
 class MenuScene : public Scene
 {
 public:
@@ -25,5 +27,10 @@ protected:
 	void OnUpdate() override;
 	void OnLoad() override;
 	void OnPreDraw(Renderer* renderer) override;
+
+private:
+	bool starting = false;
+	int startDelay;
+	const std::wstring startMessage = L"Everybody is ready, starting the game ";
 };
 

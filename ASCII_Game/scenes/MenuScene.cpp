@@ -18,7 +18,16 @@ void MenuScene::OnUpdate()
     }
 
     if (readyPlayers == playerCount) {
-        parent->LoadScene(new GameScene());
+        if (!starting) {
+            starting = true;
+            startDelay = parent->targetFPS * START_GAME_DELAY;
+        } else {
+            startDelay--;
+
+            if (startDelay <= 0) {
+                parent->LoadScene(new GameScene());
+            }
+        }
     }
 }
 
@@ -42,7 +51,13 @@ void MenuScene::OnPreDraw(Renderer* renderer)
     renderer->DrawTexture(50 - (TEX_PRESS_A.GetWidth() / 2), 40, TEX_PRESS_A, 0x0f);
 
     for (int i = 0; i < playerCount; i++) {
-
         renderer->DrawTexture(i * 10 + (50 - playerCount * 5) + 2, 50, TEX_TANK_BODY, currentPlayerColors[i]);
+    }
+
+    if (starting) {
+        int nSusp = 3 - (startDelay / 8) % 4;
+        int y = min(START_GAME_DELAY * parent->targetFPS - startDelay, 10);
+        std::wstring susp(nSusp, L'.');
+        renderer->DrawString(parent->width / 2 - startMessage.size() / 2, parent->height - y, startMessage + susp, 0x0f);
     }
 }

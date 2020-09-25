@@ -6,7 +6,7 @@
 
 #include "Textures.h"
 
-#define MINE_MAX_LIFETIME 4.0
+#define MINE_MAX_LIFETIME 8.0
 #define MINE_SLOW_BLINK_SPEED 60
 #define MINE_FAST_BLINK_SPEED 5
 #define MINE_EXPLOSION_DURATION 0.4
