@@ -59,15 +59,13 @@ Application::Application(const short width, const short height, const short font
 }
 
 void Application::RefreshFrame() {
-    renderer->Update();
+    if (renderer->freezeFrameCount > 0) return;
 
     int rxSign = ((double)rand() / RAND_MAX) > 0.5f ? 1 : -1;
     int rySign = ((double)rand() / RAND_MAX) > 0.5f ? 1 : -1;
 
     double rx = rxSign * (((double)rand() / (RAND_MAX)) + 1) * renderer->shakeForce;
     double ry = rySign * (((double)rand() / (RAND_MAX)) + 1) * renderer->shakeForce;
-
-    COORD origin = { rx, ry };
 
     WriteConsoleOutputW(hOutput, renderer->buffer, dwBufferSize, dwBufferCoord, &rcRegion);
 
@@ -144,6 +142,12 @@ void Application::UpdateInputs() {
 }
 
 void Application::Update() {
+    
+    renderer->Update();
+
+    if (renderer->freezeFrameCount > 0)
+        return;
+
     if (currentScene != nullptr) {
         currentScene->Update();
     }

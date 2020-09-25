@@ -129,9 +129,23 @@ void Renderer::DoScreenShake(float force) {
     shakeForce = force;
 }
 
+void Renderer::FreezeFrame(int frameCount) {
+    if (frameCount <= freezeFrameCount)
+        return;
+    freezeFrameCount = frameCount;
+}
+
 void Renderer::Update() {
+    if (freezeFrameCount > 0) {
+        freezeFrameCount--;
+        return;
+    }
+
     if (shakeForce < 0.1f) {
         shakeForce = 0;
+    } else {
+        shakeForce *= 0.92f;
     }
-    shakeForce *= 0.92f;
+
+    
 }

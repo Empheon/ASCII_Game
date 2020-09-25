@@ -31,12 +31,12 @@ void ScoreScene::OnLoad()
 void ScoreScene::OnPreDraw(Renderer* renderer)
 {
     parent->renderer->Clear(' ', 0x07);
-    parent->renderer->DrawTexture(50 - (TEX_SCOREBOARD_TEXT.GetWidth() / 2), 15, TEX_SCOREBOARD_TEXT, 0x0f);
+    parent->renderer->DrawTexture(50 - (TEX_SCOREBOARD_TEXT.GetWidth() / 2), 15, TEX_SCOREBOARD_TEXT, previousGameColors[0]);
 
     for (int i = 0; i < playerCount; i++) {
         WORD color = previousGameColors[i];
-        parent->renderer->DrawTexture(30, 25 + i * 10, TEX_SCORE_NUMBERS[i], color);
-        parent->renderer->DrawTexture(50 - 2, 25 + 1 + i * 10, TEX_TANK_BODY, color);
+        parent->renderer->DrawTexture(30, 23 + i * 10, TEX_SCORE_NUMBERS[i], color);
+        parent->renderer->DrawTexture(50 - 2, 23 + 1 + i * 10, TEX_TANK_BODY, color);
     }
 
     parent->renderer->DrawTexture(50 - (TEX_PRESS_A.GetWidth() / 2), 60, TEX_PRESS_A, 0x0f);

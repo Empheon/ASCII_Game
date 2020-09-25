@@ -132,6 +132,8 @@ void Tank::DrawCannon(Renderer* renderer) const {
 void Tank::Hit() {
     if (invincibilityDelay > 0)
         return;
+    
+    parent->parent->renderer->FreezeFrame(5);
     hitPoints--;
     SetInvincible();
 

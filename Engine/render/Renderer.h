@@ -6,13 +6,12 @@
 
 class Renderer
 {
+    friend class Application;
 public:
     short width;
     short height;
     CHAR_INFO* buffer;
     int8_t* depthBuffer;
-
-    float shakeForce = 0;
 
     Renderer(const short& width, const short& height);
     ~Renderer();
@@ -31,7 +30,12 @@ public:
     void DrawString(const int x, const int y, const std::wstring& text, const WORD& attributes, int8_t z = 0);
 
     void DoScreenShake(float force);
+    void FreezeFrame(int frameCount);
 
     void Update();
+
+private:
+    float shakeForce = 0;
+    int freezeFrameCount = 0;
 };
 
