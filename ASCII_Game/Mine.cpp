@@ -37,7 +37,7 @@ void Mine::OnDraw(Renderer* renderer) {
         }
     } else {
        if (lifeTime % blinkSpeed < (blinkSpeed / 4)) {
-            renderer->DrawCircle(position.x, position.y, width / 2 + 1, L'.', 0x0f, depth);
+            renderer->DrawCircle(position.x, position.y, width / 2 + 1, L'\u2591', 0x0c, depth);
        }
     }
     
@@ -86,14 +86,13 @@ void Mine::Kaboom() {
 }
 
 void Mine::SpawnExplosionParticles() {
-    const int partCount = 60;
+    const int partCount = (int) (0.6f * MINE_EXPLOSION_RANGE * MINE_EXPLOSION_RANGE);
     for (int i = 0; i < partCount; ++i) {
         if (i < partCount / 2) {
             parent->parent->particles.Emit(Mine::CreateSparkleParticle(), position);
         }
         ParticleInfo info = Mine::CreateSmokeParticle();
-        info.velocity = 2.0f;
-        Vector2 offset = { RandFloatRange(-MINE_EXPLOSION_RANGE/2, MINE_EXPLOSION_RANGE/2), RandFloatRange(-3.0, 3.0) };
+        Vector2 offset = { RandFloatRange(-width/2, width/2), RandFloatRange(-height/3, height/3) };
         parent->parent->particles.Emit(info, position + offset);
     }
 }
@@ -101,7 +100,7 @@ void Mine::SpawnExplosionParticles() {
 ParticleInfo Mine::CreateSmokeParticle() {
     ParticleInfo part = PART_MINE_SMOKE_BASE;
     part.direction = Vector2(RandFloatRange(-1.0f, 1.0f), 0.0f).Angle();
-    part.gravity *= RandFloatRange(0.0f, 1.0f);
+    part.gravity *= RandFloatRange(0.2f, 1.0f);
     part.color = (rand() % 2 == 0) ? 0x07 : 0x08;
     part.character = PART_CHARS_SHRINKING_CIRCLE[rand() % 4];
     part.lifeTime += rand() % 40;

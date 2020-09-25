@@ -31,7 +31,7 @@ private:
     const Vector2 cannonOffset = Vector2(2, 2);
 
     const float speed = 0.5f;
-    const float cursorDistance = 30.0f;
+    const float cursorDistance = 20.0f;
 
     Vector2 cursor;
     int approxAngle = 0;

@@ -123,13 +123,13 @@ void Renderer::DrawString(const int x, const int y, const std::wstring& text, co
     }
 }
 
-void Renderer::DoScreenShake(float force)
-{
+void Renderer::DoScreenShake(float force) {
+    if (force <= shakeForce)
+        return;
     shakeForce = force;
 }
 
-void Renderer::Update()
-{
+void Renderer::Update() {
     if (shakeForce < 0.1f) {
         shakeForce = 0;
     }
