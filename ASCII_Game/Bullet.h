@@ -6,7 +6,6 @@
 
 #define MAX_BOUNCES 1
 
-const std::vector<wchar_t> PART_CHARS_SHRINKING_CIRCLE = { L'O', L'\u25cb', L'\u00b0', L'\u2219' };
 const ParticleInfo PART_BULLET_SMOKE_BASE {
     0.4f, 0.0f, {0.0f, 0.0f},
     0.0f, 0.0f, -0.01f, 0.0f,
@@ -44,6 +43,9 @@ public:
     void OnUpdate() override;
     void OnDraw(Renderer* renderer);
     void OnCollision(Entity* other, const CollisionData* data) override;
+    
+private:
+    void SpawnImpactParticles();
 
     static ParticleInfo CreateSmokeParticle(const float bulletDir);
     static ParticleInfo CreateSparkleParticle();

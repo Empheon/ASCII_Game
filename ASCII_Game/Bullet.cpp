@@ -48,16 +48,20 @@ void Bullet::OnCollision(Entity* other, const CollisionData* data)
            ownerTag = "NO_OWNER";
        }
     } else {
-        for (int i = 0; i < 12; ++i) {
-            if (i < 8) {
-                parent->parent->particles.Emit(Bullet::CreateSparkleParticle(), position);
-            }
-            ParticleInfo info = Bullet::CreateSmokeParticle(-M_PI / 2.0f);
-            info.velocity = 2.0f;
-            Vector2 offset = { RandFloatRange(-2.0, 2.0), RandFloatRange(-2.0, 2.0) };
-            parent->parent->particles.Emit(info, position + offset);
-        }
+        SpawnImpactParticles();
         Destroy();
+    }
+}
+
+void Bullet::SpawnImpactParticles() {
+    for (int i = 0; i < 12; ++i) {
+        if (i < 8) {
+            parent->parent->particles.Emit(Bullet::CreateSparkleParticle(), position);
+        }
+        ParticleInfo info = Bullet::CreateSmokeParticle(-M_PI / 2.0f);
+        info.velocity = 2.0f;
+        Vector2 offset = { RandFloatRange(-2.0, 2.0), RandFloatRange(-2.0, 2.0) };
+        parent->parent->particles.Emit(info, position + offset);
     }
 }
 

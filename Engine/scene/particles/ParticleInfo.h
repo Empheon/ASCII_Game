@@ -5,6 +5,8 @@
 #include "../../Random.h"
 #include "../../Vector2.h"
 
+const std::vector<wchar_t> PART_CHARS_SHRINKING_CIRCLE = { L'O', L'\u25cb', L'\u00b0', L'\u2219' };
+
 struct ParticleInfo {
 	float velocity;
 	float direction;
