@@ -44,10 +44,7 @@ void Mine::OnDraw(Renderer* renderer) {
 }
 
 void Mine::OnCollision(Entity* other, const CollisionData* data) {
-    if (other->GetType() == "Bullet" || other->GetType() == "Mine") {
-        std::wstringstream ss;
-        ss << "[COLLISION] " << std::endl;
-        OutputDebugString(ss.str().c_str());
+    if (other->GetType() == "Bullet" || other->GetType() == "Mine") { 
         Kaboom();
     } else if (other->GetType() == "Tank" && other->tag != ownerTag) {
         Kaboom();
