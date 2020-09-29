@@ -9,6 +9,8 @@
 #include "../Wall.h"
 #include "../LevelInfo.h"
 
+#define DELAY_BEFORE_END 2.0
+
 class GameScene : public Scene
 {
 public:
@@ -23,8 +25,10 @@ public:
     std::stack<Tank*> destroyedTanks;
 
     std::vector<LevelInfo> levels;
+    int delayBeforeEnd = -1;
 
     void DestroyTank(Tank* tank);
+    void EndGame();
 
 protected:
     void OnUpdate() override;

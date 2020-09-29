@@ -13,6 +13,12 @@ GameScene::~GameScene() {
 }
 
 void GameScene::OnUpdate() {
+	if (delayBeforeEnd > -1) {
+		delayBeforeEnd--;
+		if (delayBeforeEnd == 0) {
+			EndGame();
+		}
+	}
 }
 
 void GameScene::OnLoad() {
@@ -63,7 +69,11 @@ void GameScene::DestroyTank(Tank* tank) {
 		}
 		destroyedTanks.push(winner);
 
-		parent->particles.Clear();
-		parent->LoadScene(new ScoreScene(destroyedTanks));
+		delayBeforeEnd = (int) (DELAY_BEFORE_END * parent->targetFPS);
 	}
+}
+
+void GameScene::EndGame() {
+	parent->particles.Clear();
+	parent->LoadScene(new ScoreScene(destroyedTanks));
 }
