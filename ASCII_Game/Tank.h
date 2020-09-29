@@ -15,6 +15,15 @@
 
 #define INVINCIBILITY_TIME 1.0
 
+const std::vector<wchar_t> PART_TANK_PARTS = { L'/', L'\u2564', L'\u2563', L'\u263c', L'\u2551', L'\u2550', L'\\', L'\u0398' };
+const ParticleInfo PART_TANK_PART_BASE {
+    0.5f, 0.0f, {0.0f, 0.0f},
+    0.0f, -1.5f, 0.08f, 0.9f,
+    0.96f,
+    0x0f, L'#', -1,
+    60 * 10
+};
+
 class Tank : public Entity
 {
 public:
@@ -55,5 +64,9 @@ private:
 
     void Hit();
     void SetInvincible();
+
+    void SpawnPartParticles();
+
+    static ParticleInfo CreatePartParticle(const Tank& tank);
 };
 

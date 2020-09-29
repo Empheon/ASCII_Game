@@ -136,6 +136,7 @@ void Tank::Hit() {
     parent->parent->renderer->FreezeFrame(5);
     hitPoints--;
     SetInvincible();
+    SpawnPartParticles();
 
     if (hitPoints <= 0) {
         parent->parent->renderer->FreezeFrame(12);
@@ -146,4 +147,24 @@ void Tank::Hit() {
 
 void Tank::SetInvincible() {
     invincibilityDelay = INVINCIBILITY_TIME * parent->parent->targetFPS;
+}
+
+void Tank::SpawnPartParticles()
+{
+    for (int i = 0; i < 10; ++i) {
+        ParticleInfo info = Tank::CreatePartParticle(*this);
+        parent->parent->particles.Emit(info, position);
+    }
+}
+
+ParticleInfo Tank::CreatePartParticle(const Tank& tank)
+{
+    ParticleInfo part = PART_TANK_PART_BASE;
+    part.direction = RandFloatRange(0.0f, 2.0f * M_PI);
+    part.velocity += RandFloatRange(-0.2f, 0.4f);
+    part.color = tank.attributes;
+    part.zVelocity *= RandFloatRange(0.8f, 1.2f);
+    part.character = PART_TANK_PARTS[rand() % 8];
+    part.lifeTime += rand() % 60;
+    return part;
 }
