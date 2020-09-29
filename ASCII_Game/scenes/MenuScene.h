@@ -32,5 +32,6 @@ private:
 	bool starting = false;
 	int startDelay;
 	const std::wstring startMessage = L"Everybody is ready, starting the game ";
+	const std::wstring missingDevice = L"No game controller was detected, please plug one.";
 };
 

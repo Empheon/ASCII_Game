@@ -15,7 +15,7 @@ public:
 	InputManager();
 	~InputManager();
 	void Update();
-	void SearchGamepads();
+	bool SearchGamepads();
 	Gamepad* GetGamepad(int i);
 	size_t GetConnectedGamepadCount();
 

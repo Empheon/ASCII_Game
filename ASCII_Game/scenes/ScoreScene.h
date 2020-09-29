@@ -30,5 +30,7 @@ protected:
 	void OnUpdate() override;
 	void OnLoad() override;
 	void OnPreDraw(Renderer* renderer) override;
+	const std::wstring missingDevice = L"No game controller was detected, please plug one.";
+
 };
 
