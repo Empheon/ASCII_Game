@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="ASCII_Game.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Countdown.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="scenes\MenuScene.cpp" />
     <ClCompile Include="scenes\GameScene.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Countdown.h" />
     <ClInclude Include="LevelInfo.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="scenes\MenuScene.h" />

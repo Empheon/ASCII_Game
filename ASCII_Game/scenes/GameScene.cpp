@@ -45,6 +45,8 @@ void GameScene::OnLoad() {
 	for (auto& t : tanks) {
 		Instantiate(&t, currentLevel->spawns[i++]);
 	}
+
+	Instantiate(new Countdown());
 }
 
 void GameScene::OnPreDraw(Renderer* renderer) {
@@ -55,7 +57,7 @@ void GameScene::DestroyTank(Tank* tank) {
 	destroyedTanks.push(tank);
 
 	if (tanks.size() == 1) {
-		parent->LoadScene(new ScoreScene(destroyedTanks));
+		delayBeforeEnd = (int)(DELAY_BEFORE_END * parent->targetFPS);
 		return;
 	}
 
@@ -70,6 +72,13 @@ void GameScene::DestroyTank(Tank* tank) {
 		destroyedTanks.push(winner);
 
 		delayBeforeEnd = (int) (DELAY_BEFORE_END * parent->targetFPS);
+	}
+}
+
+
+void GameScene::StartGame() {
+	for (Tank& t : tanks) {
+		t.AllowAttack();
 	}
 }
 

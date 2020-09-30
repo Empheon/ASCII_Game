@@ -34,7 +34,7 @@ void Tank::OnUpdate() {
     }
 
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
-        if (canShoot) {
+        if (canShoot && allowAttack) {
             for (Bullet& b : bullets) {
                 if (!b.IsValidInstance()) {
                     canShoot = false;
@@ -52,7 +52,7 @@ void Tank::OnUpdate() {
     }
 
     if (gamepad->IsButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
-        if (canPlaceMine) {
+        if (canPlaceMine && allowAttack) {
             for (Mine& m : mines) {
                 if (!m.IsValidInstance()) {
                     canPlaceMine = false;
@@ -127,6 +127,11 @@ void Tank::OnCollision(Entity* other, const CollisionData* data) {
 
 void Tank::DrawCannon(Renderer* renderer) const {
     renderer->DrawTexture(position.x - 1, position.y - 1, TEX_TANK_CANNON[approxAngle % 8], color, depth);
+}
+
+void Tank::AllowAttack(bool allow)
+{
+    allowAttack = allow;
 }
 
 void Tank::Hit() {

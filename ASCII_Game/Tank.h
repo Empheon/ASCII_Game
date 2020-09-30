@@ -32,6 +32,9 @@ public:
     Tank(const WORD& attributes, Gamepad* gamepad)
         : Entity(TEX_TANK_BODY, attributes, 0b10000000, 0b11110000, 5, 5), gamepad(gamepad), color(attributes) {
     }
+
+    void AllowAttack(bool allow = true);
+
     Gamepad* gamepad;
     WORD color;
 
@@ -47,6 +50,7 @@ private:
 
     Bullet bullets[5];
     Mine mines[3];
+    bool allowAttack = false;
     bool canShoot = true;
     bool canPlaceMine = true;
 

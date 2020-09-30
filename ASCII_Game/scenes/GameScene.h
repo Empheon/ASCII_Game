@@ -8,6 +8,7 @@
 #include "../Tank.h"
 #include "../Wall.h"
 #include "../LevelInfo.h"
+#include "../Countdown.h"
 
 #define DELAY_BEFORE_END 2.0
 
@@ -28,6 +29,7 @@ public:
     int delayBeforeEnd = -1;
 
     void DestroyTank(Tank* tank);
+    void StartGame();
     void EndGame();
 
 protected:
