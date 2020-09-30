@@ -86,3 +86,7 @@ void GameScene::EndGame() {
 	parent->particles.Clear();
 	parent->LoadScene(new ScoreScene(destroyedTanks));
 }
+
+std::vector<Tank>* GameScene::GetPlayers() {
+	return &tanks;
+}

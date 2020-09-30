@@ -22,12 +22,12 @@ public:
 
 
     static constexpr WORD playerColors[] = { 0x0c, 0x0b, 0x0a, 0x0d };
-    std::vector<Tank> tanks;
     std::stack<Tank*> destroyedTanks;
 
     std::vector<LevelInfo> levels;
     int delayBeforeEnd = -1;
 
+    std::vector<Tank>* GetPlayers(); 
     void DestroyTank(Tank* tank);
     void StartGame();
     void EndGame();
@@ -38,6 +38,7 @@ protected:
     void OnPreDraw(Renderer* renderer) override;
 
 private:
+    std::vector<Tank> tanks;
     inline static int prevLevelIndex = -1;
 
     LevelInfo level1() {

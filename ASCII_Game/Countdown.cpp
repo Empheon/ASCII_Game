@@ -2,6 +2,7 @@
 
 void Countdown::OnInit() {
 	ticksPerState = TIME_PER_STATE * parent->parent->targetFPS;
+	players = ((GameScene*)parent)->GetPlayers();
 }
 
 void Countdown::OnUpdate() {
@@ -22,6 +23,12 @@ void Countdown::OnDraw(Renderer* renderer) {
 	float trueX = easeOutIn(xPos, 0, 1, 1.0) * parent->parent->width;
 	Texture tex = TEX_START_COUNTDOWN[state % STATE_COUNT];
 	parent->parent->renderer->DrawTexture(trueX - tex.GetWidth() / 2.0f, parent->parent->height / 2 - 3, tex, COUNTDOWN_COLORS[state % 4], depth);
+
+	if (parent->parent->GetAppTicks() % 30 < 15) {
+		for (auto t : *players) {
+			parent->parent->renderer->DrawChar(t.position.x + 2, t.position.y - 3, L'\u25bc', t.attributes, depth - 1);
+		}
+	}
 }
 
 float Countdown::easeOut(float t, float b, float c, float d)

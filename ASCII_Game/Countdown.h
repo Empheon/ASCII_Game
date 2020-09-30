@@ -1,9 +1,11 @@
 #pragma once
 
+#include <iostream>
 #include <scene/Entity.h>
 
 #include "scenes/GameScene.h"
 #include "Textures.h"
+#include "Tank.h"
 
 #define TIME_PER_STATE 1.0
 #define STATE_COUNT 4
@@ -28,6 +30,7 @@ private:
 	int ticksPerState;
 	int state;
 	int stateTime;
+	std::vector<Tank>* players;
 
 	static float easeOut(float t, float b, float c, float d);
 	static float easeIn(float t, float b, float c, float d);
