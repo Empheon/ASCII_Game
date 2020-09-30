@@ -87,7 +87,7 @@ void Tank::OnDraw(Renderer* renderer) {
     if (allowAttack) {
         std::wstringstream hpStr;
         for (int i = 0; i < hitPoints; i++) {
-            hpStr << L"\u2590";
+            hpStr << L"\u2580";
         }
 
         WORD hpColor = 0x0A;
