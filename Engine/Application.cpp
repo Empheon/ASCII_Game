@@ -111,6 +111,7 @@ void Application::Run()
         }
 
         Draw();
+
         RefreshFrame();
 
 #ifdef _DEBUG

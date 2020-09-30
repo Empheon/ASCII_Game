@@ -8,10 +8,11 @@ InputManager::InputManager() {
 InputManager::~InputManager() {
 }
 
-void InputManager::SearchGamepads()
+bool InputManager::SearchGamepads()
 {
     DWORD dwResult;
 
+    int prevGamepadsCount = gamepads.size();
     gamepads.clear();
 
     for (DWORD i = 0; i < MAX_CONNECTED_GAMEPADS; ++i)
@@ -32,6 +33,8 @@ void InputManager::SearchGamepads()
     std::wstringstream ss;
     ss << "Gamepads : " << gamepads.size() << std::endl;
     OutputDebugString(ss.str().c_str());
+
+    return prevGamepadsCount != gamepads.size();
 }
 
 Gamepad* InputManager::GetGamepad(int i) {
