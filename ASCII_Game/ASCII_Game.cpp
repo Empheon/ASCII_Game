@@ -1,3 +1,5 @@
+#pragma comment(lib, "winmm.lib")
+
 #include <iostream>
 #include <Application.h>
 #include <render/Texture.h>
@@ -7,6 +9,7 @@
 
 #include "scenes/GameScene.h"
 #include "scenes/MenuScene.h"
+
 
 
 class Game : public Application
@@ -22,7 +25,9 @@ public:
 
     void OnInit() override {
         LoadScene(new MenuScene());
-        //LoadScene(&gs);
+        
+        
+        //PlaySound(TEXT("background_music.mp3"), NULL, SND_FILENAME | SND_ASYNC);
     }
 
     void LoadRandomGameScene() {

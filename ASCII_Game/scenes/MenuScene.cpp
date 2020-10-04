@@ -34,6 +34,7 @@ void MenuScene::OnUpdate()
             startDelay--;
 
             if (startDelay <= 0) {
+                mciSendString(L"play sounds/background_music_bis.mp3 repeat", NULL, 0, NULL);
                 parent->LoadScene(new GameScene());
             }
         }

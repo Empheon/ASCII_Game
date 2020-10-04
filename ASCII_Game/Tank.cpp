@@ -45,6 +45,9 @@ void Tank::OnUpdate() {
                     break;
                 }
             }
+
+            mciSendString(L"stop sounds/shoot.mp3", NULL, 0, NULL);
+            mciSendString(L"play sounds/shoot.mp3", NULL, 0, NULL);
         }
     }
     else {
@@ -146,9 +149,16 @@ void Tank::Hit() {
     SpawnPartParticles();
 
     if (hitPoints <= 0) {
+        mciSendString(L"stop sounds/tank_destruction.mp3", NULL, 0, NULL);
+        mciSendString(L"play sounds/tank_destruction.mp3", NULL, 0, NULL);
+
         parent->parent->renderer->FreezeFrame(12);
         Destroy();
         ((GameScene*)parent)->DestroyTank(this);
+    }
+    else {
+        mciSendString(L"stop sounds/tank_impact_bis.mp3", NULL, 0, NULL);
+        mciSendString(L"play sounds/tank_impact_bis.mp3", NULL, 0, NULL);
     }
 }
 
