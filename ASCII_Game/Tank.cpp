@@ -1,4 +1,6 @@
 #include "Tank.h"
+
+#include <AudioManager.h>
 #include "scenes/GameScene.h"
 
 void Tank::OnInit() {
@@ -45,9 +47,8 @@ void Tank::OnUpdate() {
                     break;
                 }
             }
-
-            mciSendString(L"stop sounds/shoot.mp3", NULL, 0, NULL);
-            mciSendString(L"play sounds/shoot.mp3", NULL, 0, NULL);
+            
+            AudioManager::Instance().Play(L"sounds/shoot.mp3");
         }
     }
     else {
@@ -78,14 +79,9 @@ void Tank::OnUpdate() {
 }
 
 void Tank::OnDraw(Renderer* renderer) {
-
-    std::wstringstream ss;
-    ss << "cannon: " << cursorAngle << " a: " << approxAngle;
-
     DrawCannon(renderer);
 
     renderer->DrawTexture(cursor.x, cursor.y, cursorTexture, color, 100);
-    //renderer->DrawString(position.x, position.y - 2, ss.str(), color, 99);
 
     if (allowAttack) {
         std::wstringstream hpStr;
@@ -103,7 +99,6 @@ void Tank::OnDraw(Renderer* renderer) {
 
         renderer->DrawString(position.x, position.y - 2, hpStr.str(), hpColor, 99);
     }
-      // renderer->DrawCircle(position.x, position.y, 10, L'\u2666', 0x0f, 127);
 };
 
 void Tank::OnCollision(Entity* other, const CollisionData* data) {
@@ -134,8 +129,7 @@ void Tank::DrawCannon(Renderer* renderer) const {
     renderer->DrawTexture(position.x - 1, position.y - 1, TEX_TANK_CANNON[approxAngle % 8], color, depth);
 }
 
-void Tank::AllowAttack(bool allow)
-{
+void Tank::AllowAttack(bool allow) {
     allowAttack = allow;
 }
 
@@ -149,16 +143,13 @@ void Tank::Hit() {
     SpawnPartParticles();
 
     if (hitPoints <= 0) {
-        mciSendString(L"stop sounds/tank_destruction.mp3", NULL, 0, NULL);
-        mciSendString(L"play sounds/tank_destruction.mp3", NULL, 0, NULL);
+        AudioManager::Instance().Play(L"sounds/tank_destruction.mp3");
 
         parent->parent->renderer->FreezeFrame(12);
         Destroy();
         ((GameScene*)parent)->DestroyTank(this);
-    }
-    else {
-        mciSendString(L"stop sounds/tank_impact_bis.mp3", NULL, 0, NULL);
-        mciSendString(L"play sounds/tank_impact_bis.mp3", NULL, 0, NULL);
+    } else {
+        AudioManager::Instance().Play(L"sounds/tank_impact_bis.mp3");
     }
 }
 
@@ -166,16 +157,14 @@ void Tank::SetInvincible() {
     invincibilityDelay = INVINCIBILITY_TIME * parent->parent->targetFPS;
 }
 
-void Tank::SpawnPartParticles()
-{
+void Tank::SpawnPartParticles() {
     for (int i = 0; i < 10; ++i) {
         ParticleInfo info = Tank::CreatePartParticle(*this);
         parent->parent->particles.Emit(info, position);
     }
 }
 
-ParticleInfo Tank::CreatePartParticle(const Tank& tank)
-{
+ParticleInfo Tank::CreatePartParticle(const Tank& tank) {
     ParticleInfo part = PART_TANK_PART_BASE;
     part.direction = RandFloatRange(0.0f, 2.0f * M_PI);
     part.velocity += RandFloatRange(-0.2f, 0.4f);

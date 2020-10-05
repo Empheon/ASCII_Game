@@ -1,4 +1,6 @@
 #include "MenuScene.h"
+
+#include <AudioManager.h>
 #include "GameScene.h"
 
 #define _USE_MATH_DEFINES 
@@ -34,7 +36,7 @@ void MenuScene::OnUpdate()
             startDelay--;
 
             if (startDelay <= 0) {
-                mciSendString(L"play sounds/background_music_bis.mp3 repeat", NULL, 0, NULL);
+                AudioManager::Instance().Play(L"sounds/background_music_bis.mp3", true);
                 parent->LoadScene(new GameScene());
             }
         }
