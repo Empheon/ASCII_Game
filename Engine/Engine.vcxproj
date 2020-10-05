@@ -196,6 +196,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="scene\particles\ParticleEmitter.h" />
     <ClInclude Include="scene\particles\Particle.h" />
     <ClInclude Include="scene\particles\ParticleInfo.h" />
@@ -211,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="scene\particles\ParticleEmitter.cpp" />
     <ClCompile Include="scene\particles\Particle.cpp" />
     <ClCompile Include="Random.cpp" />

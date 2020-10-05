@@ -102,8 +102,6 @@ void Tank::OnDraw(Renderer* renderer) {
 };
 
 void Tank::OnCollision(Entity* other, const CollisionData* data) {
-    std::wstringstream ss;
-
     if (other->GetType() == "Wall" || other->GetType() == "Tank") {
         if (data->direction == CollisionData::Direction::HOR) {
             position.y = prevPosition.y;

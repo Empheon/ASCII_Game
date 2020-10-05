@@ -29,10 +29,6 @@ bool InputManager::SearchGamepads()
 
         gamepads.push_back(Gamepad(i, state));        
     }
-        
-    std::wstringstream ss;
-    ss << "Gamepads : " << gamepads.size() << std::endl;
-    OutputDebugString(ss.str().c_str());
 
     return prevGamepadsCount != gamepads.size();
 }

@@ -13,6 +13,6 @@ public:
 
 private:
 	bool audioEnabled = true;
-	AudioManager();
+	AudioManager() {};
 };
 
