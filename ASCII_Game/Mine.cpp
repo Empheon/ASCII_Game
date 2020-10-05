@@ -1,8 +1,9 @@
 #include "Mine.h"
 
 #define _USE_MATH_DEFINES
-
 #include <math.h>
+
+#include <AudioManager.h>
 
 void Mine::OnInit() {
     depth = -20;
@@ -22,6 +23,10 @@ void Mine::OnUpdate() {
         if (lifeTime <= 0) {
             Kaboom();
         }
+
+        if (lifeTime % blinkSpeed == 0) {
+            AudioManager::Instance().Play(L"sounds/bip_bomb.mp3");
+        }
     } else { // KABOOM
         if (lifeTime <= 0) {
             Destroy();
@@ -34,8 +39,6 @@ void Mine::OnDraw(Renderer* renderer) {
         renderer->DrawChar(position.x, position.y, L'\u25b2', color, depth);
         if (lifeTime % blinkSpeed < (blinkSpeed / 3)) {
             renderer->DrawTexture(position.x - 1, position.y - 1, TEX_MINE_WARNING, 0x0f, 40);
-            mciSendString(L"stop sounds/bip_bomb.mp3", NULL, 0, NULL);
-            mciSendString(L"play sounds/bip_bomb.mp3", NULL, 0, NULL);
         }
     } else {
        if (lifeTime % blinkSpeed < (blinkSpeed / 4)) {
@@ -83,8 +86,7 @@ void Mine::Kaboom() {
     SetExplosionCollider();
     SpawnExplosionParticles();
 
-    mciSendString(L"stop sounds/mine_explosion.mp3", NULL, 0, NULL);
-    mciSendString(L"play sounds/mine_explosion.mp3", NULL, 0, NULL);
+    AudioManager::Instance().Play(L"sounds/mine_explosion.mp3");
 }
 
 void Mine::SpawnExplosionParticles() {

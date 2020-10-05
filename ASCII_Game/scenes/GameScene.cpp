@@ -1,4 +1,6 @@
 #include "GameScene.h"
+
+#include <AudioManager.h>
 #include "ScoreScene.h"
 
 GameScene::GameScene() {
@@ -47,6 +49,7 @@ void GameScene::OnLoad() {
 	}
 
 	Instantiate(new Countdown());
+	AudioManager::Instance().Play(L"sounds/background_music_bis.mp3", true);
 }
 
 void GameScene::OnPreDraw(Renderer* renderer) {

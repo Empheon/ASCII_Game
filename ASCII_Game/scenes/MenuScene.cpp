@@ -36,7 +36,6 @@ void MenuScene::OnUpdate()
             startDelay--;
 
             if (startDelay <= 0) {
-                AudioManager::Instance().Play(L"sounds/background_music_bis.mp3", true);
                 parent->LoadScene(new GameScene());
             }
         }
@@ -50,6 +49,8 @@ void MenuScene::OnLoad()
     for (int i = 0; i < playerCount; ++i) {
         gamepads.push_back(parent->input.GetGamepad(i));
     }
+
+    AudioManager::Instance().Stop(L"sounds/background_music_bis.mp3");
 }
 
 void MenuScene::OnPreDraw(Renderer* renderer)
