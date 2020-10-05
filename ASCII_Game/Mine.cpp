@@ -34,6 +34,8 @@ void Mine::OnDraw(Renderer* renderer) {
         renderer->DrawChar(position.x, position.y, L'\u25b2', color, depth);
         if (lifeTime % blinkSpeed < (blinkSpeed / 3)) {
             renderer->DrawTexture(position.x - 1, position.y - 1, TEX_MINE_WARNING, 0x0f, 40);
+            mciSendString(L"stop sounds/bip_bomb.mp3", NULL, 0, NULL);
+            mciSendString(L"play sounds/bip_bomb.mp3", NULL, 0, NULL);
         }
     } else {
        if (lifeTime % blinkSpeed < (blinkSpeed / 4)) {
@@ -80,6 +82,9 @@ void Mine::Kaboom() {
     parent->parent->renderer->DoScreenShake(1.2f);
     SetExplosionCollider();
     SpawnExplosionParticles();
+
+    mciSendString(L"stop sounds/mine_explosion.mp3", NULL, 0, NULL);
+    mciSendString(L"play sounds/mine_explosion.mp3", NULL, 0, NULL);
 }
 
 void Mine::SpawnExplosionParticles() {
